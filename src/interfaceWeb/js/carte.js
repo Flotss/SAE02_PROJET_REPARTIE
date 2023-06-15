@@ -1,3 +1,6 @@
+import restaurant from "./restaurant.js";
+import uiReservation from "./uiReservation.js";
+
 console.log('Hi map ! ');
 
 const nancy = {
@@ -53,9 +56,10 @@ function addMarkerResto(gps, id, nom, adresse){
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
     GroupeMarkerResto.addLayer(marker);
     marker.on("click", () => {
-        /*let resto = restaurant(gps,id,nom,adresse);*/
-
-    })
+        let restoCourant = restaurant.resto(id, nom, adresse, gpos);
+        console.log(restoCourant);
+        uiReservation.uiForm(restoCourant);
+    });
 }
 
 function addMarkerVlib(lat, lng, nom,capacite, nbDispo, adresse){
