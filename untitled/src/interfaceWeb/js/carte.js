@@ -16,8 +16,6 @@ function init(){
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    L.marker([51.5, -0.09]).addTo(map);
-
     var xhr = new XMLHttpRequest();
     xhr.open("GET", "http://localhost:8000/votre-route", true);
     xhr.onreadystatechange = function() {

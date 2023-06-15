@@ -1,3 +1,5 @@
+package app;
+
 import java.rmi.RemoteException;
 import java.sql.*;
 import java.util.ArrayList;
@@ -19,7 +21,7 @@ public class ServiceRestaurant implements ServiceRestaurantInterface
       List<String> restaurantsList = new ArrayList<>();
 
       System.out.println("Récupération des données");
-      String SQLPrep = "SELECT * FROM Restaurant;";
+      String SQLPrep = "SELECT * FROM Restaurant";
       PreparedStatement prep1 = connection.prepareStatement(SQLPrep);
       prep1.execute();
       ResultSet rs = prep1.getResultSet();

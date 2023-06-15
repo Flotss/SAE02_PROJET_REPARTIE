@@ -1,3 +1,5 @@
+package app;
+
 import netscape.javascript.JSObject;
 
 import java.rmi.Remote;

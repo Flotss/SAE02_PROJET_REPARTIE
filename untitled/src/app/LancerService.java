@@ -1,3 +1,5 @@
+package app;
+
 import java.rmi.server.UnicastRemoteObject;
 import java.rmi.RemoteException;
 import java.rmi.registry.Registry;
