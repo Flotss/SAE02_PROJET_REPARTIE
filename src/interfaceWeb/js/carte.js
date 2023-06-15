@@ -79,22 +79,22 @@ function addMarkerVlib(lat, lng, nom, nbVeloDispo,nbPlaceParkingDispo , adresse)
     GroupeMarkerVlib.addLayer(marker);
 }
 
-// var JsonObject
-// var xhr = new XMLHttpRequest();
-// xhr.open("GET", "http://localhost:8000/votre-route", true);
-// xhr.onreadystatechange = function() {
-//     if (xhr.readyState === 4 && xhr.status === 200) {
-//         JsonObject = JSON.parse(xhr.response);
-//         console.log(JsonObject);
-//         for(let i = 0; i < JsonObject.restaurants.length; i++) {
-//             addMarkerResto(JsonObject.restaurants[i].GPS, JsonObject.restaurants[i].ID, JsonObject.restaurants[i].NOM, JsonObject.restaurants[i].ADRESSE);
-//         }
-//     } else {
-//         if (xhr.status !== 200)
-//             console.log("La requête a échoué. Code de réponse : " + xhr.status);
-//     }
-// };
-// xhr.send();
+var JsonObject
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "http://localhost:8000/api/resto", true);
+xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        JsonObject = JSON.parse(xhr.response);
+        console.log(JsonObject);
+        for(let i = 0; i < JsonObject.restaurants.length; i++) {
+            addMarkerResto(JsonObject.restaurants[i].GPS, JsonObject.restaurants[i].ID, JsonObject.restaurants[i].NOM, JsonObject.restaurants[i].ADRESSE);
+        }
+    } else {
+        if (xhr.status !== 200)
+            console.log("La requête a échoué. Code de réponse : " + xhr.status);
+    }
+};
+xhr.send();
 init();
 
 
