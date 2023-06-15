@@ -1,7 +1,14 @@
 /**
  * Fetches the station information from the API
- *
- * @returns {Map} Station id => Station data (capacity, lat, lon, name)
+ * @param stationId {string} The station id to fetch FACULTATIVE
+ * @returns {Map} Station id (String) => Station data (JSON)
+ * @example JSON Keys
+ * station_id (Station id),
+ * name (Station name),
+ * lat (Station latitude),
+ * lon (Station longitude),
+ * capacity (Station capacity)
+ * address (Station address)
  */
 export async function getStationData(stationId) {
     const apiUrl = 'https://transport.data.gouv.fr/gbfs/nancy/station_information.json';
@@ -45,6 +52,14 @@ export async function getStationData(stationId) {
  * Fetches all the station status from the API or a specific station status if stationId is provided
  * @param stationId {string} The station id to fetch FACULTATIVE
  * @returns {Promise<*|null>} The station status or null if an error occurred
+ * @example JSON Keys
+ * station_id (Station id),
+ * is_installed (Station installed),
+ * is_renting (Station renting),
+ * is_returning (Station returning),
+ * last_reported (Station last reported),
+ * num_bikes_available (Number of bikes available),
+ * num_docks_available (Number of docks available)
  */
 export async function getStationStatus(stationId) {
     const apiUrl = 'https://transport.data.gouv.fr/gbfs/nancy/station_status.json';
