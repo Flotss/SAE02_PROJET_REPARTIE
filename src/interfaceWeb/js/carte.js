@@ -12,6 +12,18 @@ const zoomLevel = 12;
 const GroupeMarkerResto = L.layerGroup([]);
 const GroupeMarkerVlib = L.layerGroup([]);
 
+const iconVlib = L.icon({
+    iconUrl: 'stylesheet/image/logoVelib.png',
+    iconSize:     [40, 40], // size of the icon
+    iconAnchor:   [20, 38], // point of the icon which will correspond to marker's location
+});
+
+const iconResto = L.icon({
+    iconUrl: 'stylesheet/image/logoResto.png',
+    iconSize:     [40, 40], // size of the icon
+    iconAnchor:   [20, 40], // point of the icon which will correspond to marker's location
+});
+
 
 export function init() {
     const map = L.map('map', {
@@ -37,11 +49,12 @@ export function init() {
     let lng = 6.2;
     let nom = "La rivière";
     let adresse = "Dans Nancy";
-    addMarkerResto([48.71, lng],1,"best Resto ever", "pas important");
-    var markerResto1 = L.marker([lat, lng]);
+    addMarkerResto("48.71, 6.2",1,"best Resto ever", "pas important");
+    var markerResto1 = L.marker([lat, lng],{icon: iconResto});
     markerResto1.bindPopup(`<b>${nom}</b><br>${adresse}`);
-    var markerVlib1 = L.marker([48.71, 6.21]);
-    var markerVlib2 = L.marker([48.7, 6.21]);
+    var markerVlib1 = L.marker([48.71, 6.21],{icon: iconVlib});
+    var markerVlib2 = L.marker([48.7, 6.21],{icon: iconVlib});
+
     GroupeMarkerResto.addLayer(markerResto1);
     GroupeMarkerVlib.addLayer(markerVlib1);
     GroupeMarkerVlib.addLayer(markerVlib2);
@@ -50,7 +63,7 @@ export function init() {
 function addMarkerResto(gps, id, nom, adresse){
     console.log(gps);
     let coordonnes = gps.split(',');
-    var marker = L.marker([coordonnes[0], coordonnes[1]]);
+    var marker = L.marker([coordonnes[0], coordonnes[1]],{icon: iconResto});
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
     GroupeMarkerResto.addLayer(marker);
     marker.on("click", () => {
@@ -61,7 +74,7 @@ function addMarkerResto(gps, id, nom, adresse){
 }
 
 function addMarkerVlib(lat, lng, nom, nbVeloDispo,nbPlaceParkingDispo , adresse){
-    var marker = L.marker([lat,lng]);
+    var marker = L.marker([lat,lng],{icon: iconVlib});
     marker.bindPopup(`<b>${nom}</b><br>${adresse}<br>Nombre vélo dispo: ${nbVeloDispo}<br>Nombre places parking dispo: ${nbPlaceParkingDispo}`).openPopup();
     GroupeMarkerVlib.addLayer(marker);
 }
