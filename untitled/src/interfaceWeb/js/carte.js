@@ -1,21 +1,21 @@
 console.log('Hi map ! ');
-const nancy = {
-    lat : 48.6921,
-    lng : 6.1844,
-}
-const zoomLevel = 12;
-
-const Resto = L.layerGroup([]);
-const Vlib = L.layerGroup([]);
-
-const map = L.map('map', {
-    center: [nancy.lat, nancy.lng],
-    zoom: zoomLevel,
-    layers: [Resto]
-});
-
 
 export function init(){
+    const nancy = {
+        lat : 48.6921,
+        lng : 6.1844,
+    }
+    const zoomLevel = 12;
+
+    const Resto = L.layerGroup([]);
+    const Vlib = L.layerGroup([]);
+
+    const map = L.map('map', {
+        center: [nancy.lat, nancy.lng],
+        zoom: zoomLevel,
+        layers: [Resto]
+    });
+
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
