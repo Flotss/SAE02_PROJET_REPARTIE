@@ -38,4 +38,5 @@ export default {
     nomResto: nomResto,
     adresse: adresse,
     gps: gps,
+    reserver: reserver,
 }
