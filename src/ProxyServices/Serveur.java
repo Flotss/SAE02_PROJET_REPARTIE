@@ -65,6 +65,8 @@ class ServeurProxy implements HttpHandler {
 
     Serveur serveur;
 
+    String response;
+
     public ServeurProxy(Serveur serveur) {
         this.serveur = serveur;
     }
@@ -74,9 +76,19 @@ class ServeurProxy implements HttpHandler {
         exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://localhost:63342");
         exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST");
         exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
-        byte[] allBytes = exchange.getRequestBody().readAllBytes();
-        String content = new String(allBytes, "UTF-8");
-        serveur.Reservation(content.split(","));
+
+        // Recherche de la valeur du paramètre "url"
+        String query = exchange.getRequestURI().getQuery();
+        String[] querySplit = query.split("=");
+        String url = querySplit[1];
+
+
+        this.response = this.serveur.makeRequest(url);
+
+        exchange.sendResponseHeaders(200, this.response.getBytes().length);
+        OutputStream outputStream = exchange.getResponseBody();
+        outputStream.write(this.response.getBytes());
+        outputStream.close();
     }
 }
 

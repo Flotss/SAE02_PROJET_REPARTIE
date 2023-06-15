@@ -13,7 +13,7 @@ import java.rmi.server.UnicastRemoteObject;
 import java.sql.SQLException;
 
 public class LancerService {
-    public static void start(int ... ports){
+    public static void start(int... ports) {
         try {
 
             ServiceRestaurant serviceRestaurant = new ServiceRestaurant(); /* Créer une instance de Compteur */
@@ -29,7 +29,7 @@ public class LancerService {
                     port = ports[0];
                 }
                 Registry reg = LocateRegistry.createRegistry(port); /* Création de l'annuaire */
-                System.out.println(reg.toString());
+                System.out.println(reg);
 
                 registerRemote(reg, rd, "ServiceRestaurant");
                 registerRemote(reg, rdProxy, "ServiceProxyBlocage");
@@ -40,7 +40,7 @@ public class LancerService {
         } catch (RemoteException e) {
             System.out.println("Erreur d'exportation du service: \n" + e.getMessage());
         } catch (SQLException e) {
-            System.out.println("Erreur de base de données: \n"+ e.getMessage());
+            System.out.println("Erreur de base de données: \n" + e.getMessage());
         }
     }
 
