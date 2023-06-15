@@ -1,12 +1,12 @@
 console.log('Hi map ! ');
 
 const nancy = {
-        lat : 48.6921,
-        lng : 6.1844,
-    }
+    lat: 48.6921,
+    lng: 6.1844,
+}
 const zoomLevel = 12;
 
-const Resto = L.layerGroup([]);
+const GroupeMarkerResto = L.layerGroup([]);
 const Vlib = L.layerGroup([]);
 
 
@@ -14,16 +14,16 @@ export function init() {
     const map = L.map('map', {
         center: [nancy.lat, nancy.lng],
         zoom: zoomLevel,
-        layers: [Resto]
+        layers: [GroupeMarkerResto]
     });
 
-    L.tileLayer('https:tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
-        attribution: '&copy; <a href="http:www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
     const SelecteurAffichage = {
-        "restaurants": Resto,
+        "restaurants": GroupeMarkerResto,
         "Vlib": Vlib
     };
     L.control.layers(null, SelecteurAffichage).addTo(map);
@@ -35,8 +35,7 @@ function addMarker(gps, id, nom, adresse){
     let coordonnes = gps.split(',');
     var marker = L.marker([coordonnes[0], coordonnes[1]]);
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
-    Resto.addLayer(marker);
-    console.log("Added marker")
+    GroupeMarkerResto.addLayer(marker);
     marker.on("click", () => {
         /*let resto = restaurant(gps,id,nom,adresse);*/
 

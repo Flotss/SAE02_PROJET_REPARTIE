@@ -119,4 +119,3 @@ document.getElementById("rapCarte").addEventListener("click", () => {
 
 
 
-
