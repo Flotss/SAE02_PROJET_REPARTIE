@@ -1,6 +1,5 @@
 console.log('Hi map ! ');
 
-export function init(){
     const nancy = {
         lat : 48.6921,
         lng : 6.1844,
@@ -10,6 +9,9 @@ export function init(){
     const Resto = L.layerGroup([]);
     const Vlib = L.layerGroup([]);
 
+
+
+export function init(){
     const map = L.map('map', {
         center: [nancy.lat, nancy.lng],
         zoom: zoomLevel,
@@ -36,7 +38,7 @@ export function init(){
 
     var markerResto1 = L.marker([lat, lng]);
     markerResto1.bindPopup(`<b>${nom}</b><br>${adresse}`);
-    markerResto1.addEventListener("bubblingMouseEvents", () => console.log("test"));
+    markerResto1.onclick("mouseEvent", (event) => console.log("test"))
     var markerResto2 = L.marker([48.71, lng] );
 
     var markerVlib1 = L.marker([48.71, 6.21]);
@@ -46,10 +48,6 @@ export function init(){
     Resto.addLayer(markerResto2);
     Vlib.addLayer(markerVlib1);
     Vlib.addLayer(markerVlib2);
-
-
-
-
 }
 
 function addMarker(lat, lng, nom, adresse){
