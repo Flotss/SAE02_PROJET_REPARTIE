@@ -1,5 +1,6 @@
 import restaurant from "./restaurant.js";
 import uiReservation from "./uiReservation.js";
+import {getBikeAvailability, getStationAvailability, getStationData} from "../../trafficInformations/VelostanNancy.js";
 
 console.log('Hi map ! ');
 
@@ -13,7 +14,7 @@ const GroupeMarkerResto = L.layerGroup([]);
 const GroupeMarkerVlib = L.layerGroup([]);
 
 
-export function init() {
+export async function init() {
     const map = L.map('map', {
         center: [nancy.lat, nancy.lng],
         zoom: zoomLevel,
@@ -31,13 +32,22 @@ export function init() {
     };
     L.control.layers(null, SelecteurAffichage).addTo(map);
 
+    let stations = await getStationData();
+
+    for (const station of stations) {
+        let stationData = station[1];
+        let bikeAvailability = await getBikeAvailability(stationData.id);
+        let stationAvailability = await getStationAvailability(stationData.id);
+        addMarkerVlib(stationData.lat, stationData.lon, stationData.name, bikeAvailability, stationAvailability, stationData.address);
+    }
 
     //A supprimé par la suite
     let lat = 48.7;
+    console.log(typeof lat)
     let lng = 6.2;
     let nom = "La rivière";
     let adresse = "Dans Nancy";
-    addMarkerResto([48.71, lng],1,"best Resto ever", "pas important");
+    addMarkerResto([48.71, lng], 1, "best Resto ever", "pas important");
     var markerResto1 = L.marker([lat, lng]);
     markerResto1.bindPopup(`<b>${nom}</b><br>${adresse}`);
     var markerVlib1 = L.marker([48.71, 6.21]);
@@ -48,9 +58,7 @@ export function init() {
 }
 
 function addMarkerResto(gps, id, nom, adresse){
-    console.log(gps);
-    let coordonnes = gps.split(',');
-    var marker = L.marker([coordonnes[0], coordonnes[1]]);
+    var marker = L.marker([gps[0], gps[1]]);
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
     GroupeMarkerResto.addLayer(marker);
     marker.on("click", () => {
@@ -82,6 +90,6 @@ function addMarkerVlib(lat, lng, nom, nbVeloDispo,nbPlaceParkingDispo , adresse)
 //     }
 // };
 // xhr.send();
-init();
+await init();
 
 
