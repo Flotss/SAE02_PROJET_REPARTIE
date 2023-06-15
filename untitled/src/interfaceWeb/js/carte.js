@@ -17,9 +17,9 @@ export function init() {
         layers: [Resto]
     });
 
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    L.tileLayer('https:tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+        attribution: '&copy; <a href="http:www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
     const SelecteurAffichage = {
@@ -28,32 +28,15 @@ export function init() {
     };
     L.control.layers(null, SelecteurAffichage).addTo(map);
 
-
-//A supprimé par la suite
-    let lat = 48.7;
-    let lng = 6.2;
-    let nom = "La rivière";
-    let adresse = "Dans Nancy";
-    var markerResto1 = L.marker([lat, lng]);
-    markerResto1.bindPopup(`<b>${nom}</b><br>${adresse}`);
-    var markerResto2 = L.marker([48.71, lng] );
-    markerResto2.on("click",() => console.log("test"));
-
-
-    var markerVlib1 = L.marker([48.71, 6.21]);
-    var markerVlib2 = L.marker([48.7, 6.21]);
-
-    Resto.addLayer(markerResto1);
-    Resto.addLayer(markerResto2);
-    Vlib.addLayer(markerVlib1);
-    Vlib.addLayer(markerVlib2);
 }
 
 function addMarker(gps, id, nom, adresse){
-    let coordonnes = gps.splice(",");
+    console.log(gps);
+    let coordonnes = gps.split(',');
     var marker = L.marker([coordonnes[0], coordonnes[1]]);
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
     Resto.addLayer(marker);
+    console.log("Added marker")
     marker.on("click", () => {
         /*let resto = restaurant(gps,id,nom,adresse);*/
 
@@ -61,16 +44,20 @@ function addMarker(gps, id, nom, adresse){
 }
 
 init();
+var JsonObject
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "http://localhost:8000/votre-route", true);
+xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        JsonObject = JSON.parse(xhr.response);
+        console.log(JsonObject);
+        for(let i = 0; i < JsonObject.restaurants.length; i++) {
+            addMarker(JsonObject.restaurants[i].GPS, JsonObject.restaurants[i].ID, JsonObject.restaurants[i].NOM, JsonObject.restaurants[i].ADRESSE);
+        }
+    } else {
+        if (xhr.status !== 200)
+            console.log("La requête a échoué. Code de réponse : " + xhr.status);
+    }
+};
+xhr.send();
 
-
-// var xhr = new XMLHttpRequest();
-// xhr.open("GET", "http://localhost:8000/votre-route", true);
-// xhr.onreadystatechange = function() {
-//     if (xhr.readyState === 4 && xhr.status === 200) {
-//         var response = xhr.responseText;
-//         console.log("Réponse du serveur : " + response);
-//     } else {
-//         console.log("La requête a échoué. Code de réponse : " + xhr.status);
-//     }
-// };
-// xhr.send();
