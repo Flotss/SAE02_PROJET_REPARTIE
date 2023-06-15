@@ -3,7 +3,7 @@
  *
  * @returns {Map} Station id => Station data (capacity, lat, lon, name)
  */
-async function getStationData(stationId) {
+export async function getStationData(stationId) {
     const apiUrl = 'https://transport.data.gouv.fr/gbfs/nancy/station_information.json';
 
     try {
@@ -46,7 +46,7 @@ async function getStationData(stationId) {
  * @param stationId {string} The station id to fetch FACULTATIVE
  * @returns {Promise<*|null>} The station status or null if an error occurred
  */
-async function getStationStatus(stationId) {
+export async function getStationStatus(stationId) {
     const apiUrl = 'https://transport.data.gouv.fr/gbfs/nancy/station_status.json';
 
     try {
@@ -71,7 +71,7 @@ async function getStationStatus(stationId) {
  * @param stationId {string} The station id to fetch FACULTATIVE
  * @returns {Promise<Map<any, any>|*>} The bike availability or null if an error occurred
  */
-async function getBikeAvailability(stationId) {
+export async function getBikeAvailability(stationId) {
     if (stationId) {
         const stationStatus = await getStationStatus(stationId);
         return stationStatus.num_bikes_available;
@@ -90,7 +90,7 @@ async function getBikeAvailability(stationId) {
  * @param stationId {string} The station id to fetch FACULTATIVE
  * @returns {Promise<Map<any, any>|*>} The station availability or null if an error occurred
  */
-async function getStationAvailability(stationId) {
+export async function getStationAvailability(stationId) {
     if (stationId) {
         const stationStatus = await getStationStatus(stationId);
         return stationStatus.num_docks_available;
