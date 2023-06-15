@@ -35,7 +35,7 @@ nav img{
     width: 90%;
 }
 
-#rapportNav, #carteNav{
+#rapCarte{
     background-image: linear-gradient(to top, #add19e, #f8d19c);
     display: flex;
     justify-content: center;
@@ -48,7 +48,7 @@ nav img{
     position: relative;
 }
 
-#rapportNav::before{
+.rapportNav::before{
     content:"Rapport";
     clip-path: polygon(0% 50%,
     10% 30%,
@@ -76,7 +76,7 @@ nav img{
     font-size: 15px;
     color: transparent;
 }
-#carteNav::before{
+.carteNav::before{
     content:"Carte";
     clip-path: polygon(0% 50%,
     10% 30%,
@@ -105,7 +105,7 @@ nav img{
     color: transparent;
 }
 
-#rapportNav:hover::before, #carteNav:hover::before {
+.rapportNav:hover::before, .carteNav:hover::before {
     opacity: 1;
     width: 100px;
     top: 20%;
