@@ -37,7 +37,7 @@ export function init() {
     let lng = 6.2;
     let nom = "La rivière";
     let adresse = "Dans Nancy";
-    addMarkerResto([48.71, lng],1,"best Resto ever", "pas important");
+    addMarkerResto("48.71, 6.2", 1,"best Resto ever", "pas important");
     var markerResto1 = L.marker([lat, lng]);
     markerResto1.bindPopup(`<b>${nom}</b><br>${adresse}`);
     var markerVlib1 = L.marker([48.71, 6.21]);
@@ -54,8 +54,8 @@ function addMarkerResto(gps, id, nom, adresse){
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
     GroupeMarkerResto.addLayer(marker);
     marker.on("click", () => {
-        let restoCourant = restaurant.resto(id, nom, adresse, gpos);
-        console.log(restoCourant);
+        let restoCourant = new restaurant.Resto(id, nom, adresse, gps);
+        console.log('resto courant : ' + restoCourant);
         uiReservation.uiForm(restoCourant);
     });
 }

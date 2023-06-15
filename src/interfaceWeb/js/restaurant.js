@@ -1,5 +1,5 @@
 
-class resto {
+class Resto {
     constructor(id, nom, adresse, gps) {
         this.id = id;
         this.nom = nom;
@@ -14,5 +14,5 @@ function reserver(restaurant, nom, prenom, nbConviv, telephone){
 
 export default{
     reserver: reserver,
-    resto: resto,
+    Resto: Resto,
 }
