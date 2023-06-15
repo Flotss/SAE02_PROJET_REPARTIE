@@ -20,16 +20,13 @@ export async function getStationData(stationId) {
 
         for (const station of stationData.data.stations) {
 
-            let stationAddress = await fetch('https://api-adresse.data.gouv.fr/reverse?lon=' + station.lon + '&lat=' + station.lat + '&type=street&limit=1');
-            stationAddress = await stationAddress.json();
-
             let stationInfo = {
                 "id": station.station_id,
                 "capacity": station.capacity,
                 "lat": station.lat,
                 "lon": station.lon,
                 "name": station.name.split(/-(.*)/s)[1].trim(),
-                "address": stationAddress.features[0].properties.name,
+                "address": station.address,
             };
 
             stationMap.set(station.station_id, stationInfo);

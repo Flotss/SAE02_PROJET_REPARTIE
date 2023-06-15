@@ -66,7 +66,7 @@ public class ServiceRestaurant implements ServiceRestaurantInterface
 
 
    @Override
-   public String reserverResto(String idRestaurant, String nom, String prenom, String nb, String tel) throws RemoteException {
+   public void reserverResto(String idRestaurant, String nom, String prenom, String nb, String tel) throws RemoteException {
       try {
          System.out.println("Réservation en cours...");
          String SQLInsert = "INSERT INTO RESERVATION (IDRESTAURANT, NOM, PRENOM, NBCONVIVES, TELEPHONE) VALUES (?, ?, ?, ?, ?);";
@@ -79,10 +79,9 @@ public class ServiceRestaurant implements ServiceRestaurantInterface
          prepStatement.executeUpdate();
 
          System.out.println("Réservation effectuée avec succès.");
-         return "Réservation effectuée avec succès.";
       } catch (SQLException e) {
          System.out.println("Erreur lors de la réservation : " + e.getMessage());
-         return "Erreur lors de la réservation : " + e.getMessage();
+         e.getMessage();
       }
    }
 }
