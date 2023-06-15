@@ -26,8 +26,8 @@ export function init() {
     }).addTo(map);
 
     const SelecteurAffichage = {
-        "restaurants": GroupeMarkerResto,
-        "Vlib": GroupeMarkerVlib
+        "Restaurants": GroupeMarkerResto,
+        "Stations Vlib": GroupeMarkerVlib
     };
     L.control.layers(null, SelecteurAffichage).addTo(map);
 
@@ -62,9 +62,9 @@ function addMarkerResto(gps, id, nom, adresse){
     });
 }
 
-function addMarkerVlib(lat, lng, nom,capacite, nbDispo, adresse){
+function addMarkerVlib(lat, lng, nom, nbVeloDispo,nbPlaceParkingDispo , adresse){
     var marker = L.marker([lat,lng]);
-    marker.bindPopup(`<b>${nom}</b><br>${adresse}<br>Nombre velo dispo: ${nbDispo}/${capacite}`).openPopup();
+    marker.bindPopup(`<b>${nom}</b><br>${adresse}<br>Nombre vélo dispo: ${nbVeloDispo}<br>Nombre places parking dispo: ${nbPlaceParkingDispo}`).openPopup();
     GroupeMarkerVlib.addLayer(marker);
 }
 
