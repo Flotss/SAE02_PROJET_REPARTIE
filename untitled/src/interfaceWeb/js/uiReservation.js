@@ -1,6 +1,6 @@
-import './restaurant.js';
+import restaurant from "./restaurant"; './restaurant.js';
 
-function submitForm(event) {
+function submitForm(event, restaurant) {
     event.preventDefault();
 
     const nom = document.getElementById('nom').value;
@@ -13,16 +13,16 @@ function submitForm(event) {
     console.log('newRes : ' + nbConvives);
     console.log('newRes : ' + telephone);
 
-    reserver(nom, prenom, nbConvives, telephone);
+    restaurant.reserver(nom, prenom, nbConvives, telephone);
 }
 
-function uiForm(restaurant){
+function uiForm(restaurantt){
 
     let html = `
-        <h2>${restaurant.nomResto}</h2>
-        <p>${restaurant.adresse}</p>
+        <h2>${restaurantt.nomResto}</h2>
+        <p>${restaurantt.adresse}</p>
         
-         <form id="reservationForm" onsubmit="submitForm(event)">
+         <form id="reservationForm" onsubmit="submitForm(event, restaurantt)">
             <label for="nom">Nom :</label>
             <input type="text" id="nom" required><br>
 
