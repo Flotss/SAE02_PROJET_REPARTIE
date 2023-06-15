@@ -1,4 +1,4 @@
-package app;
+package app.restaurant;
 
 import java.rmi.RemoteException;
 import java.sql.*;

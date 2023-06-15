@@ -1,10 +1,11 @@
 package ProxyServices;
 
-import app.ServiceRestaurant;
-import app.ServiceRestaurantInterface;
-import com.sun.net.httpserver.HttpServer;
-import com.sun.net.httpserver.HttpHandler;
+import app.LancerService;
+import app.proxy.ServiceProxyBlocageInterface;
+import app.restaurant.ServiceRestaurantInterface;
 import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -13,7 +14,6 @@ import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.sql.SQLException;
-import java.util.Arrays;
 
 class ServeurResto implements HttpHandler {
 
@@ -61,13 +61,34 @@ class ServeurResa implements HttpHandler {
     }
 }
 
+class ServeurProxy implements HttpHandler {
+
+    Serveur serveur;
+
+    public ServeurProxy(Serveur serveur) {
+        this.serveur = serveur;
+    }
+
+    public void handle(HttpExchange exchange) throws IOException {
+        // Ajouter les en-têtes CORS
+        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://localhost:63342");
+        exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST");
+        exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
+        byte[] allBytes = exchange.getRequestBody().readAllBytes();
+        String content = new String(allBytes, "UTF-8");
+        serveur.Reservation(content.split(","));
+    }
+}
+
 class Serveur{
 
     ServiceRestaurantInterface sr;
+    ServiceProxyBlocageInterface spb;
 
     public Serveur(String adress, int port) {
         try {
             this.sr = (ServiceRestaurantInterface) LocateRegistry.getRegistry(adress, port).lookup("ServiceRestaurant");
+            this.spb = (ServiceProxyBlocageInterface) LocateRegistry.getRegistry(adress, port).lookup("ServiceProxyBlocage");
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         } catch (NotBoundException e) {
@@ -93,7 +114,18 @@ class Serveur{
         }
     }
 
+    public String makeRequest(String url){
+        try {
+            return spb.makeRequest(url);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void main(String[] args) {
+        LancerService.start();
+
+
         HttpServer server = null;
         try {
             server = HttpServer.create(new InetSocketAddress(8000), 0);
@@ -105,6 +137,7 @@ class Serveur{
 
         server.createContext("/api/resto", new ServeurResto(serveur));
         server.createContext("/api/resa", new ServeurResa(serveur));
+        server.createContext("/api/proxy", new ServeurProxy(serveur));
         server.start();
     }
 }
