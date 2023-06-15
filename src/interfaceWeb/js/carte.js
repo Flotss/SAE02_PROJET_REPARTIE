@@ -77,7 +77,7 @@ export async function init() {
 
     let incidents = await getCirculationIncidents();
     for (const incident of incidents) {
-        addMarkerIncidentCirculation(incident.lat, incident.lon, incident.description, incident.location, incident.start, incident.end);
+        addMarkerIncidentCirculation(incident.lat, incident.lon, incident.description, incident.location, incident.start, incident.end, incident.city, incident.postcode);
     }
 
     //A supprimé par la suite
@@ -120,9 +120,9 @@ function addMarkerEtablissementEnsSup(lat, lng, nom, adresse) {
     GroupeMarkerVlib.addLayer(marker);
 }
 
-function addMarkerIncidentCirculation(lat, lng, descr, adresse, start, end) {
+function addMarkerIncidentCirculation(lat, lng, descr, adresse, start, end, city, postcode) {
     let marker = L.marker([lat, lng], {icon: iconIncident});
-    marker.bindPopup(`<b>${descr}</b><br>${adresse}<br>Début: ${start}<br>Fin: ${end}`).openPopup();
+    marker.bindPopup(`<b>${descr}</b><br>${adresse} ${postcode} ${city}<br>Début: ${start}<br>Fin: ${end}`).openPopup();
     GroupeMarkerIncidents.addLayer(marker);
 }
 
