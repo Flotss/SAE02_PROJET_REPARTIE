@@ -7,6 +7,7 @@
           integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
           crossorigin=""/>
     <link rel="stylesheet" href="stylesheet/carte.css"/>
+    <link rel="stylesheet" href="stylesheet/compteRendu.css"/>
 </head>
 <body>
 
@@ -19,44 +20,8 @@
 </div>
 
 
-<div class="content">
-    <div id="affichageMap">
-        <div id="map"></div>
-        <div id="formReservation">
-
-            <h2>${restaurant.nomResto}</h2>
-            <p>${restaurant.adresse}</p>
-
-            <form id="reservationForm" onsubmit="submitForm(event)">
-
-                <div id="formnomid">
-                    <label for="nom">Nom :</label>
-                    <input type="text" id="nom" required><br>
-                </div>
-
-                <div id="formprenomid">
-                    <label for="prenom">Prénom :</label>
-                    <input type="text" id="prenom" required><br>
-                </div>
-
-                <div id="formnbConvivesid">
-                    <label for="nbConvives">Nombre de convives :</label>
-                    <input type="number" id="nbConvives" required><br>
-                </div>
-
-                <div id="formtelephoneid">
-                    <label for="telephone">Téléphone :</label>
-                    <input type="tel" id="telephone" required><br>
-                </div>
-
-
-                <button type="submit">Réserver</button>
-            </form>
-
-        </div>
-    </div>
-
-
+<div id="content">
+    <div id="map"></div>
 </div>
 
 
