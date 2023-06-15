@@ -28,6 +28,12 @@ const iconResto = L.icon({
 
 });
 
+const SelecteurAffichage = {
+    "Restaurants": GroupeMarkerResto,
+    "Stations Vlib": GroupeMarkerVlib,
+    "Etablissements enseignement supérieurs": GroupeMarkerEtablissementEnsSup
+};
+
 
 export function init() {
     const map = L.map('map', {
@@ -41,11 +47,7 @@ export function init() {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
-    const SelecteurAffichage = {
-        "Restaurants": GroupeMarkerResto,
-        "Stations Vlib": GroupeMarkerVlib,
-        "Etablissements enseignement supérieurs": GroupeMarkerEtablissementEnsSup
-    };
+
     L.control.layers(null, SelecteurAffichage).addTo(map);
 
 
