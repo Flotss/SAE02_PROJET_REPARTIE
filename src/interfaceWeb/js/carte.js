@@ -23,6 +23,13 @@ const iconVlib = L.icon({
     popupAnchor: [1, -30] // point from which the popup should open relative to the iconAnchor
 });
 
+const iconEcole = L.icon({
+    iconUrl: 'stylesheet/image/logoEcole.png',
+    iconSize: [50, 50], // size of the icon
+    iconAnchor: [24, 44], // point of the icon which will correspond to marker's location
+    popupAnchor: [0, -30] // point from which the popup should open relative to the iconAnchor
+});
+
 const iconResto = L.icon({
     iconUrl: 'stylesheet/image/logoResto.png',
     iconSize: [40, 40], // size of the icon
@@ -70,7 +77,6 @@ export async function init() {
 
     let incidents = await getCirculationIncidents();
     for (const incident of incidents) {
-        console.log(incident);
         addMarkerIncidentCirculation(incident.lat, incident.lon, incident.description, incident.location, incident.start, incident.end);
     }
 
@@ -120,24 +126,24 @@ function addMarkerIncidentCirculation(lat, lng, descr, adresse, start, end) {
     GroupeMarkerIncidents.addLayer(marker);
 }
 
-var JsonObject
-var xhr = new XMLHttpRequest();
-xhr.open("GET", "http://localhost:8000/api/resto", true);
-xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-        JsonObject = JSON.parse(xhr.response);
-        for (let i = 0; i < JsonObject.restaurants.length; i++) {
-            addMarkerResto(JsonObject.restaurants[i].GPS, JsonObject.restaurants[i].ID, JsonObject.restaurants[i].NOM, JsonObject.restaurants[i].ADRESSE);
-        }
-    } else {
-        if (xhr.status !== 200)
-            console.log("La requête a échoué. Code de réponse : " + xhr.status);
-    }
-};
-xhr.send();
+// var JsonObject
+// var xhr = new XMLHttpRequest();
+// xhr.open("GET", "http://localhost:8000/api/resto", true);
+// xhr.onreadystatechange = function () {
+//     if (xhr.readyState === 4 && xhr.status === 200) {
+//         JsonObject = JSON.parse(xhr.response);
+//         for (let i = 0; i < JsonObject.restaurants.length; i++) {
+//             addMarkerResto(JsonObject.restaurants[i].GPS, JsonObject.restaurants[i].ID, JsonObject.restaurants[i].NOM, JsonObject.restaurants[i].ADRESSE);
+//         }
+//     } else {
+//         if (xhr.status !== 200)
+//             console.log("La requête a échoué. Code de réponse : " + xhr.status);
+//     }
+// };
+// xhr.send();
 await init();
-
-const xhr2 = new XMLHttpRequest();
-xhr2.open("POST", "http://localhost:8000/api/resa", true);
-
-xhr2.send("id,nom,prenom,nb,tel")
+//
+// const xhr2 = new XMLHttpRequest();
+// xhr2.open("POST", "http://localhost:8000/api/resa", true);
+//
+// xhr2.send("id,nom,prenom,nb,tel")
