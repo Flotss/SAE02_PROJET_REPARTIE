@@ -33,8 +33,8 @@ export async function getCirculationIncidents() {
                 location: incidentLocation.name,
                 postcode: incidentLocation.postcode,
                 city: incidentLocation.city,
-                start: incident.starttime,
-                end: incident.endtime,
+                start: convertDateToFrench(new Date(incident.starttime)),
+                end: convertDateToFrench(new Date(incident.endtime)),
             });
         }
 
@@ -44,6 +44,16 @@ export async function getCirculationIncidents() {
         console.error('Error fetching circulation incidents:', error);
         return null;
     }
+}
+
+/**
+ * Converts a date to french format from a Date object
+ * @param date {Date} The date to convert (ISO)
+ * @returns {string} The date in french format DD/MM/YYYY
+ */
+function convertDateToFrench(date) {
+    const options = {year: 'numeric', month: 'numeric', day: 'numeric'};
+    return date.toLocaleDateString('fr-FR', options);
 }
 
 getCirculationIncidents().then((r => console.log(r)));
