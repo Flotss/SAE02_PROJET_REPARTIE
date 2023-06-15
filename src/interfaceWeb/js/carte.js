@@ -68,16 +68,11 @@ export async function init() {
     addMarkerResto("48.71, 6.2",1,"best Resto ever", "pas important");
     var markerResto1 = L.marker([lat, lng],{icon: iconResto});
     markerResto1.bindPopup(`<b>${nom}</b><br>${adresse}`);
-    var markerVlib1 = L.marker([48.71, 6.21],{icon: iconVlib});
-    var markerVlib2 = L.marker([48.7, 6.21],{icon: iconVlib});
-    markerVlib2.bindPopup(`Test`);
 
     var markerEtablissementSup = L.marker([48.69, 6.21]);
     markerEtablissementSup.bindPopup(`Test`);
 
     GroupeMarkerResto.addLayer(markerResto1);
-    GroupeMarkerVlib.addLayer(markerVlib1);
-    GroupeMarkerVlib.addLayer(markerVlib2);
     GroupeMarkerEtablissementEnsSup.addLayer(markerEtablissementSup)
 }
 
