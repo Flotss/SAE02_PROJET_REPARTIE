@@ -1,16 +1,14 @@
-let id;
-let nom;
-let adresse;
-let gps;
+import connection from "./connectionbd.js";
+class resto {
+    constructor(id, nom, adresse, gps) {
+        this.id = id;
+        this.nom = nom;
+        this.adresse = adresse;
+        this.gps = gps; 
+    }
+}
 
-const connection = mysql.createConnection({
-    host: 'charlemagne.iutnc.univ-lorraine.fr',
-    user: 'amirbeky1u',
-    password: 'Nardos2002@',
-    database: 'jdbc:oracle:thin:@charlemagne.iutnc.univ-lorraine.fr:1521:infodb'
-});
-
-function reserver(nom, prenom, nbConviv, telephone){
+function reserver(restaurant, nom, prenom, nbConviv, telephone){
     connection.connect((error) => {
         if (error) {
             console.error('Erreur de connexion à la base de données :', error);
@@ -30,4 +28,9 @@ function reserver(nom, prenom, nbConviv, telephone){
         }
         console.log('Données insérées avec succès !');
     });
+}
+
+export default{
+    reserver: reserver,
+    resto: resto,
 }
