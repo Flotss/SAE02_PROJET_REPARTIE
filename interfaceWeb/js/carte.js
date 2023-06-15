@@ -28,3 +28,6 @@ function addMarker(lat, lng, nom, adresse){
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
 }
 init();
+
+
+export { init };
