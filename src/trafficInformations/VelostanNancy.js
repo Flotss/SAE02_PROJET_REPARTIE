@@ -119,15 +119,15 @@ export async function getStationAvailability(stationId) {
     }
 }
 
-getStationData().then(r => console.log(r));
-getStationStatus().then(r => console.log(r));
-getBikeAvailability().then(r => console.log(r));
-getStationAvailability().then(r => console.log(r));
-
-getStationData('30').then(r => console.log(r));
-getStationStatus('30').then(r => console.log(r));
-getBikeAvailability('30').then(r => console.log(r));
-getStationAvailability('30').then(r => console.log(r));
+// getStationData().then(r => console.log(r));
+// getStationStatus().then(r => console.log(r));
+// getBikeAvailability().then(r => console.log(r));
+// getStationAvailability().then(r => console.log(r));
+//
+// getStationData('30').then(r => console.log(r));
+// getStationStatus('30').then(r => console.log(r));
+// getBikeAvailability('30').then(r => console.log(r));
+// getStationAvailability('30').then(r => console.log(r));
 
 //TODO : Nombre de vélos disponibles par station et nombre de places disponibles par station != de la capacité ??
 
