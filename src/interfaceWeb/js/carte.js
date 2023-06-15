@@ -33,7 +33,7 @@ const iconResto = L.icon({
 const iconIncident = L.icon({
     iconUrl: 'stylesheet/image/logoIncident.png',
     iconSize: [70, 70], // size of the icon
-    iconAnchor: [20, 40], // point of the icon which will correspond to marker's location
+    iconAnchor: [35, 54], // point of the icon which will correspond to marker's location
     popupAnchor: [1, -30]
 })
 
