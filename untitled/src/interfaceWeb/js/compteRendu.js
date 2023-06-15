@@ -35,12 +35,23 @@ const paragraph = (id, section, text) => {
 }
 
 const titleParagraph = (id, section, title) => {
-    let h3 = document.createElement("h3");
-    h3.setAttribute("id", id);
-    h3.setAttribute("class", "titleparagraph")
-    h3.innerHTML = title;
-    section.appendChild(h3);
-    return h3;
+    let h2 = document.createElement("h2");
+    h2.setAttribute("id", id);
+    h2.setAttribute("class", "titleparagraph")
+    h2.innerHTML = title;
+    section.appendChild(h2);
+    return h2;
+}
+
+const image = (id, section, src) => {
+    let div = document.createElement("div");
+    div.setAttribute("id", id);
+    let img = document.createElement("img");
+    img.setAttribute("class", "image");
+    img.src = src;
+    div.appendChild(img);
+    section.appendChild(div);
+    return img;
 }
 
 
@@ -60,8 +71,8 @@ const displayRapport = () => {
     let section1 = section("section1", containerD);
     let section2 = section("section2", containerD);
 
-    titleParagraph("title1-1", section1, "Lorem ipsum dolor sit amet con");
-    paragraph("p1", section1, "Lorem ipsum dolor sit amet con");
+    titleParagraph("title1-1", section1, "Schéma de l'architecture");
+    image("img-architecture", section1, "stylesheet/image/schemaArchitecture.png");
 
     titleParagraph("title1-2", section1, "Lorem ipsum dolor sit amet con");
     paragraph("p2", section2, "Lorem ipsum dolor sit amet con");
