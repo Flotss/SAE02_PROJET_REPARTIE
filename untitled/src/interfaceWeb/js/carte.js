@@ -5,8 +5,14 @@ const nancy = {
 }
 const zoomLevel = 12;
 
+const Resto = L.layerGroup([]);
+const Vlib = L.layerGroup([]);
 
-const map = L.map('map').setView([nancy.lat, nancy.lng], zoomLevel);
+const map = L.map('map', {
+    center: [nancy.lat, nancy.lng],
+    zoom: zoomLevel,
+    layers: [Resto]
+});
 
 
 export function init(){
@@ -14,34 +20,35 @@ export function init(){
         maxZoom: 19,
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
+
+    const SelecteurAffichage = {
+        "restaurants": Resto,
+        "Vlib": Vlib
+    };
+    L.control.layers(null, SelecteurAffichage).addTo(map);
+
+
+//A supprimé par la suite
     let lat = 48.7;
     let lng = 6.2;
     let nom = "La rivière";
     let adresse = "Dans Nancy";
 
-    var markerResto1 = L.marker([lat, lng]).addTo(map);
+    var markerResto1 = L.marker([lat, lng]);
     markerResto1.bindPopup(`<b>${nom}</b><br>${adresse}`);
     markerResto1.addEventListener("bubblingMouseEvents", () => console.log("test"));
-    var markerResto2 = L.marker([48.71, lng] ).addTo(map);
+    var markerResto2 = L.marker([48.71, lng] );
 
-    var markerVlib1 = L.marker([48.71, 6.21]).addTo(map);
-    var markerVlib2 = L.marker([48.7, 6.21]).addTo(map);
+    var markerVlib1 = L.marker([48.71, 6.21]);
+    var markerVlib2 = L.marker([48.7, 6.21]);
 
-    var Resto = L.layerGroup([markerResto1,markerResto2])
-    var Vlib = L.layerGroup([markerVlib1,markerVlib2])
+    Resto.addLayer(markerResto1);
+    Resto.addLayer(markerResto2);
+    Vlib.addLayer(markerVlib1);
+    Vlib.addLayer(markerVlib2);
 
 
-    // var xhr = new XMLHttpRequest();
-    // xhr.open("GET", "http://localhost:8000/votre-route", true);
-    // xhr.onreadystatechange = function() {
-    //     if (xhr.readyState === 4 && xhr.status === 200) {
-    //         var response = xhr.responseText;
-    //         console.log("Réponse du serveur : " + response);
-    //     } else {
-    //         console.log("La requête a échoué. Code de réponse : " + xhr.status);
-    //     }
-    // };
-    // xhr.send();
+
 
 }
 
@@ -50,3 +57,18 @@ function addMarker(lat, lng, nom, adresse){
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
 }
 init();
+
+
+
+
+// var xhr = new XMLHttpRequest();
+// xhr.open("GET", "http://localhost:8000/votre-route", true);
+// xhr.onreadystatechange = function() {
+//     if (xhr.readyState === 4 && xhr.status === 200) {
+//         var response = xhr.responseText;
+//         console.log("Réponse du serveur : " + response);
+//     } else {
+//         console.log("La requête a échoué. Code de réponse : " + xhr.status);
+//     }
+// };
+// xhr.send();
