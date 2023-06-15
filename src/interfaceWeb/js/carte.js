@@ -37,14 +37,12 @@ export function init() {
     let lng = 6.2;
     let nom = "La rivière";
     let adresse = "Dans Nancy";
+    addMarkerResto([48.71, lng],1,"best Resto ever", "pas important");
     var markerResto1 = L.marker([lat, lng]);
     markerResto1.bindPopup(`<b>${nom}</b><br>${adresse}`);
-    var markerResto2 = L.marker([48.71, lng] );
-    markerResto2.on("click",() => console.log("test"));
     var markerVlib1 = L.marker([48.71, 6.21]);
     var markerVlib2 = L.marker([48.7, 6.21]);
     GroupeMarkerResto.addLayer(markerResto1);
-    GroupeMarkerResto.addLayer(markerResto2);
     GroupeMarkerVlib.addLayer(markerVlib1);
     GroupeMarkerVlib.addLayer(markerVlib2);
 }
