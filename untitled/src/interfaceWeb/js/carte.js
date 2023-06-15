@@ -38,7 +38,6 @@ export function init(){
 
     var markerResto1 = L.marker([lat, lng]);
     markerResto1.bindPopup(`<b>${nom}</b><br>${adresse}`);
-    markerResto1.onclick("mouseEvent", (event) => console.log("test"))
     var markerResto2 = L.marker([48.71, lng] );
 
     var markerVlib1 = L.marker([48.71, 6.21]);
