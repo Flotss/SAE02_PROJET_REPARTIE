@@ -11,17 +11,21 @@ const zoomLevel = 12;
 
 const GroupeMarkerResto = L.layerGroup([]);
 const GroupeMarkerVlib = L.layerGroup([]);
+const GroupeMarkerEtablissementEnsSup = L.layerGroup([]);
 
 const iconVlib = L.icon({
     iconUrl: 'stylesheet/image/logoVelib.png',
     iconSize:     [40, 40], // size of the icon
     iconAnchor:   [20, 38], // point of the icon which will correspond to marker's location
+    popupAnchor:  [1, -30] // point from which the popup should open relative to the iconAnchor
 });
 
 const iconResto = L.icon({
     iconUrl: 'stylesheet/image/logoResto.png',
     iconSize:     [40, 40], // size of the icon
     iconAnchor:   [20, 40], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+
 });
 
 
@@ -39,7 +43,8 @@ export function init() {
 
     const SelecteurAffichage = {
         "Restaurants": GroupeMarkerResto,
-        "Stations Vlib": GroupeMarkerVlib
+        "Stations Vlib": GroupeMarkerVlib,
+        "Etablissements enseignement supérieurs": GroupeMarkerEtablissementEnsSup
     };
     L.control.layers(null, SelecteurAffichage).addTo(map);
 
@@ -54,17 +59,22 @@ export function init() {
     markerResto1.bindPopup(`<b>${nom}</b><br>${adresse}`);
     var markerVlib1 = L.marker([48.71, 6.21],{icon: iconVlib});
     var markerVlib2 = L.marker([48.7, 6.21],{icon: iconVlib});
+    markerVlib2.bindPopup(`Test`);
+
+    var markerEtablissementSup = L.marker([48.69, 6.21]);
+    markerEtablissementSup.bindPopup(`Test`);
 
     GroupeMarkerResto.addLayer(markerResto1);
     GroupeMarkerVlib.addLayer(markerVlib1);
     GroupeMarkerVlib.addLayer(markerVlib2);
+    GroupeMarkerEtablissementEnsSup.addLayer(markerEtablissementSup)
 }
 
 function addMarkerResto(gps, id, nom, adresse){
     console.log(gps);
     let coordonnes = gps.split(',');
     var marker = L.marker([coordonnes[0], coordonnes[1]],{icon: iconResto});
-    marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
+    marker.bindPopup(`<b>${nom}</b><br>${adresse}`);
     GroupeMarkerResto.addLayer(marker);
     marker.on("click", () => {
         let restoCourant = restaurant.resto(id, nom, adresse, gpos);
@@ -76,6 +86,12 @@ function addMarkerResto(gps, id, nom, adresse){
 function addMarkerVlib(lat, lng, nom, nbVeloDispo,nbPlaceParkingDispo , adresse){
     var marker = L.marker([lat,lng],{icon: iconVlib});
     marker.bindPopup(`<b>${nom}</b><br>${adresse}<br>Nombre vélo dispo: ${nbVeloDispo}<br>Nombre places parking dispo: ${nbPlaceParkingDispo}`).openPopup();
+    GroupeMarkerVlib.addLayer(marker);
+}
+
+function addMarkerEtablissementEnsSup(lat, lng, nom, adresse){
+    var marker = L.marker([lat,lng],{icon: iconVlib});
+    marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
     GroupeMarkerVlib.addLayer(marker);
 }
 
