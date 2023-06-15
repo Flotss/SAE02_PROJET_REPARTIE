@@ -10,8 +10,7 @@ const Resto = L.layerGroup([]);
 const Vlib = L.layerGroup([]);
 
 
-
-export function init(){
+export function init() {
     const map = L.map('map', {
         center: [nancy.lat, nancy.lng],
         zoom: zoomLevel,
@@ -57,9 +56,8 @@ function addMarker(gps, id, nom, adresse){
     Resto.addLayer(marker);
     marker.on("click", () => /*{let resto = restaurant(gps,id,nom,adresse);}*/)
 }
+
 init();
-
-
 
 
 // var xhr = new XMLHttpRequest();

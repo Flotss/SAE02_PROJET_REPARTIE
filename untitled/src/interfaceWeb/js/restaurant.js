@@ -1,5 +1,5 @@
 let id;
-let nom;
+let nomResto;
 let adresse;
 let gps;
 
@@ -10,7 +10,7 @@ const connection = mysql.createConnection({
     database: 'jdbc:oracle:thin:@charlemagne.iutnc.univ-lorraine.fr:1521:infodb'
 });
 
-function reserver(nom, prenom, nbConviv, telephone){
+function reserver(nomRes, prenomPres, nbConviv, telephone){
     connection.connect((error) => {
         if (error) {
             console.error('Erreur de connexion à la base de données :', error);
@@ -18,16 +18,25 @@ function reserver(nom, prenom, nbConviv, telephone){
         }
         console.log('Connecté à la base de données !');
     });
-    const newRes = { idrestaurant: id, age: 30 };
+    let newRes = { idrestaurant: id, nom: nomRes, prenom: prenomRes, nbconvives: nbConviv, telephone: telephone };
 
     connection.query(
         'INSERT INTO RESERVATION SET ?',
-        newRecord,
+        newRes,
         (error, results) => {
         if (error) {
             console.error('Erreur lors de l\'insertion des données :', error);
             return;
         }
         console.log('Données insérées avec succès !');
+
     });
+}
+
+export default {
+    id: id,
+    nomResto: nomResto,
+    adresse: adresse,
+    gps: gps,
+    reserver: reserver,
 }
