@@ -26,7 +26,13 @@ const iconResto = L.icon({
     iconSize:     [40, 40], // size of the icon
     iconAnchor:   [20, 40], // point of the icon which will correspond to marker's location
     popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
+});
 
+const iconEcole = L.icon({
+    iconUrl: 'stylesheet/image/logoEcole.png',
+    iconSize:     [50, 50], // size of the icon
+    iconAnchor:   [24, 44], // point of the icon which will correspond to marker's location
+    popupAnchor:  [0, -30] // point from which the popup should open relative to the iconAnchor
 });
 
 const SelecteurAffichage = {
@@ -69,11 +75,11 @@ export async function init() {
     var markerResto1 = L.marker([lat, lng],{icon: iconResto});
     markerResto1.bindPopup(`<b>${nom}</b><br>${adresse}`);
 
-    var markerEtablissementSup = L.marker([48.69, 6.21]);
+    var markerEtablissementSup = L.marker([48.69, 6.21],{icon: iconEcole});
     markerEtablissementSup.bindPopup(`Test`);
 
     GroupeMarkerResto.addLayer(markerResto1);
-    GroupeMarkerEtablissementEnsSup.addLayer(markerEtablissementSup)
+    GroupeMarkerEtablissementEnsSup.addLayer(markerEtablissementSup);
 }
 
 function addMarkerResto(gps, id, nom, adresse){
@@ -96,7 +102,7 @@ function addMarkerVlib(lat, lng, nom, nbVeloDispo,nbPlaceParkingDispo , adresse)
 }
 
 function addMarkerEtablissementEnsSup(lat, lng, nom, adresse){
-    var marker = L.marker([lat,lng],{icon: iconVlib});
+    var marker = L.marker([lat,lng],{icon: iconEcole});
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
     GroupeMarkerVlib.addLayer(marker);
 }
