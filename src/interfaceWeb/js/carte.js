@@ -71,7 +71,6 @@ export function init() {
 }
 
 function addMarkerResto(gps, id, nom, adresse){
-    console.log(gps);
     let coordonnes = gps.split(',');
     var marker = L.marker([coordonnes[0], coordonnes[1]],{icon: iconResto});
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`);
@@ -101,7 +100,6 @@ xhr.open("GET", "http://localhost:8000/api/resto", true);
 xhr.onreadystatechange = function() {
     if (xhr.readyState === 4 && xhr.status === 200) {
         JsonObject = JSON.parse(xhr.response);
-        console.log(JsonObject);
         for(let i = 0; i < JsonObject.restaurants.length; i++) {
             addMarkerResto(JsonObject.restaurants[i].GPS, JsonObject.restaurants[i].ID, JsonObject.restaurants[i].NOM, JsonObject.restaurants[i].ADRESSE);
         }
@@ -111,6 +109,8 @@ xhr.onreadystatechange = function() {
     }
 };
 xhr.send();
-init();
 
+const xhr2 = new XMLHttpRequest();
+xhr2.open("POST", "http://localhost:8000/api/resa", true);
 
+xhr2.send("id,nom,prenom,nb,tel")
