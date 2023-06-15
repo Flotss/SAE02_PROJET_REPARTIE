@@ -54,7 +54,10 @@ function addMarker(gps, id, nom, adresse){
     var marker = L.marker([coordonnes[0], coordonnes[1]]);
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
     Resto.addLayer(marker);
-    marker.on("click", () => /*{let resto = restaurant(gps,id,nom,adresse);}*/)
+    marker.on("click", () => {
+        /*let resto = restaurant(gps,id,nom,adresse);*/
+
+    })
 }
 
 init();

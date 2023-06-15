@@ -10,6 +10,9 @@ const connection = mysql.createConnection({
     database: 'jdbc:oracle:thin:@charlemagne.iutnc.univ-lorraine.fr:1521:infodb'
 });
 
+
+
+
 function reserver(nomRes, prenomPres, nbConviv, telephone){
     connection.connect((error) => {
         if (error) {
