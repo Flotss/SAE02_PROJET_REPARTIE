@@ -43,7 +43,6 @@ export async function init() {
 
     //A supprimé par la suite
     let lat = 48.7;
-    console.log(typeof lat)
     let lng = 6.2;
     let nom = "La rivière";
     let adresse = "Dans Nancy";
@@ -62,7 +61,7 @@ function addMarkerResto(gps, id, nom, adresse){
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
     GroupeMarkerResto.addLayer(marker);
     marker.on("click", () => {
-        let restoCourant = restaurant.resto(id, nom, adresse, gpos);
+        let restoCourant = restaurant.resto(id, nom, adresse, gps);
         console.log(restoCourant);
         uiReservation.uiForm(restoCourant);
     });
