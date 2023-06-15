@@ -48,9 +48,15 @@ export function init() {
     Vlib.addLayer(markerVlib2);
 }
 
-function addMarker(lat, lng, nom, adresse) {
-    var marker = L.marker([lat, lng]).addTo(map);
+function addMarker(gps, id, nom, adresse){
+    let coordonnes = gps.splice(",");
+    var marker = L.marker([coordonnes[0], coordonnes[1]]);
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
+    Resto.addLayer(marker);
+    marker.on("click", () => {
+        /*let resto = restaurant(gps,id,nom,adresse);*/
+
+    })
 }
 
 init();
