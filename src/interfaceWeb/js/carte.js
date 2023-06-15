@@ -1,5 +1,6 @@
 import restaurant from "./restaurant.js";
 import uiReservation from "./uiReservation.js";
+import {getBikeAvailability, getStationAvailability, getStationData} from "../../trafficInformations/VelostanNancy.js";
 
 console.log('Hi map ! ');
 
@@ -35,7 +36,7 @@ const SelecteurAffichage = {
 };
 
 
-export function init() {
+export async function init() {
     const map = L.map('map', {
         center: [nancy.lat, nancy.lng],
         zoom: zoomLevel,
@@ -50,6 +51,14 @@ export function init() {
 
     L.control.layers(null, SelecteurAffichage).addTo(map);
 
+    let stations = await getStationData();
+
+    for (const station of stations) {
+        let stationData = station[1];
+        let bikeAvailability = await getBikeAvailability(stationData.id);
+        let stationAvailability = await getStationAvailability(stationData.id);
+        addMarkerVlib(stationData.lat, stationData.lon, stationData.name, bikeAvailability, stationAvailability, stationData.address);
+    }
 
     //A supprimé par la suite
     let lat = 48.7;
@@ -79,7 +88,7 @@ function addMarkerResto(gps, id, nom, adresse){
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`);
     GroupeMarkerResto.addLayer(marker);
     marker.on("click", () => {
-        let restoCourant = restaurant.resto(id, nom, adresse, gpos);
+        let restoCourant = restaurant.resto(id, nom, adresse, gps);
         console.log(restoCourant);
         uiReservation.uiForm(restoCourant);
     });
@@ -113,6 +122,6 @@ xhr.onreadystatechange = function() {
     }
 };
 xhr.send();
-init();
+await init();
 
 
