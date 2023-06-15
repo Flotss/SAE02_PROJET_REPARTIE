@@ -1,17 +1,16 @@
 console.log('Hi map ! ');
 
-    const nancy = {
-        lat : 48.6921,
-        lng : 6.1844,
-    }
-    const zoomLevel = 12;
+const nancy = {
+    lat: 48.6921,
+    lng: 6.1844,
+}
+const zoomLevel = 12;
 
-    const Resto = L.layerGroup([]);
-    const Vlib = L.layerGroup([]);
+const Resto = L.layerGroup([]);
+const Vlib = L.layerGroup([]);
 
 
-
-export function init(){
+export function init() {
     const map = L.map('map', {
         center: [nancy.lat, nancy.lng],
         zoom: zoomLevel,
@@ -38,7 +37,7 @@ export function init(){
 
     var markerResto1 = L.marker([lat, lng]);
     markerResto1.bindPopup(`<b>${nom}</b><br>${adresse}`);
-    var markerResto2 = L.marker([48.71, lng] );
+    var markerResto2 = L.marker([48.71, lng]);
 
     var markerVlib1 = L.marker([48.71, 6.21]);
     var markerVlib2 = L.marker([48.7, 6.21]);
@@ -49,13 +48,12 @@ export function init(){
     Vlib.addLayer(markerVlib2);
 }
 
-function addMarker(lat, lng, nom, adresse){
+function addMarker(lat, lng, nom, adresse) {
     var marker = L.marker([lat, lng]).addTo(map);
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
 }
+
 init();
-
-
 
 
 // var xhr = new XMLHttpRequest();
