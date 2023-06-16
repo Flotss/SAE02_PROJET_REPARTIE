@@ -107,7 +107,7 @@ function addMarkerResto(gps, id, nom, adresse) {
 <<<<<<< HEAD
         let restoCourant = new restaurant.Resto(id, nom, adresse, gps);
         console.log('resto courant : ' + restoCourant);
-        uiReservation.uiForm(restoCourant, marker);
+        uiReservation.uiForm(restoCourant);
 =======
         uiReservation.uiForm(restoCourant);
 >>>>>>> origin/main

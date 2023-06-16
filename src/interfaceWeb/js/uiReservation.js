@@ -9,7 +9,7 @@ function submitForm(resto) {
     resto.reserver(nom, prenom, nbConvives, telephone);
 }
 
-function uiForm(restaurantt, marker){
+function uiForm(restaurantt){
 
     let node = document.createElement("div");
     document.querySelector("#affichageMap").appendChild(node);
