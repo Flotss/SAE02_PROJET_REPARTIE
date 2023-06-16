@@ -41,7 +41,7 @@ const iconIncident = L.icon({
     iconUrl: 'stylesheet/image/logoIncident.png',
     iconSize: [30, 30], // size of the icon
     iconAnchor: [14, 26], // point of the icon which will correspond to marker's location
-    popupAnchor: [1, -30]
+    popupAnchor: [2, -17]
 })
 
 const SelecteurAffichage = {
