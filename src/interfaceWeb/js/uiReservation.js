@@ -1,19 +1,12 @@
-import restaurant from "./restaurant.js";
+import Restaurant from "./restaurant.js";
 
-function submitForm(event, restaurant) {
-    event.preventDefault();
-
+function submitForm(resto) {
     const nom = document.getElementById('nom').value;
     const prenom = document.getElementById('prenom').value;
     const nbConvives = document.getElementById('nbConvives').value;
     const telephone = document.getElementById('telephone').value;
 
-    console.log('newRes : ' + nom);
-    console.log('newRes : ' + prenom);
-    console.log('newRes : ' + nbConvives);
-    console.log('newRes : ' + telephone);
-
-    restaurant.reserver(nom, prenom, nbConvives, telephone);
+    resto.reserver(nom, prenom, nbConvives, telephone);
 }
 
 function uiForm(restaurantt){
@@ -26,7 +19,7 @@ function uiForm(restaurantt){
    <p>${restaurantt.adresse}</p>
 </div>
           
-<form id="reservationForm" onsubmit="submitForm(event, restaurantt)">
+<form id="reservationForm">
     <h3>Réserver une table : </h3>
     <div id="formulaireNom">
         <label for="nom">Nom</label>
@@ -44,7 +37,7 @@ function uiForm(restaurantt){
          <label for="telephone">Téléphone</label>
          <input type="tel" id="telephone" required><br>
     </div>
-        <button type="submit">Réserver</button>
+        <button type="submit" onclick="${submitForm(restaurantt)}">Réserver</button>
 </form>`
 ;
 

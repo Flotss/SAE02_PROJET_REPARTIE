@@ -1,6 +1,7 @@
 import restaurant from "./restaurant.js";
 import uiReservation from "./uiReservation.js";
 import {getBikeAvailability, getStationAvailability, getStationData} from "../../trafficInformations/VelostanNancy.js";
+import reservation from "./restaurant.js";
 
 console.log('Hi map ! ');
 
@@ -66,20 +67,6 @@ export async function init() {
         addMarkerVlib(stationData.lat, stationData.lon, stationData.name, bikeAvailability, stationAvailability, stationData.address);
     }
 
-    //A supprimé par la suite
-    let lat = 48.7;
-    let lng = 6.2;
-    let nom = "La rivière";
-    let adresse = "Dans Nancy";
-    addMarkerResto("48.71, 6.2",1,"best Resto ever", "pas important");
-    var markerResto1 = L.marker([lat, lng],{icon: iconResto});
-    markerResto1.bindPopup(`<b>${nom}</b><br>${adresse}`);
-
-    var markerEtablissementSup = L.marker([48.69, 6.21],{icon: iconEcole});
-    markerEtablissementSup.bindPopup(`Test`);
-
-    GroupeMarkerResto.addLayer(markerResto1);
-    GroupeMarkerEtablissementEnsSup.addLayer(markerEtablissementSup);
 }
 
 function addMarkerResto(gps, id, nom, adresse){
@@ -87,9 +74,8 @@ function addMarkerResto(gps, id, nom, adresse){
     var marker = L.marker([coordonnes[0], coordonnes[1]],{icon: iconResto});
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`);
     GroupeMarkerResto.addLayer(marker);
+    let restoCourant = new restaurant.Resto(id, nom, adresse, gps);
     marker.on("click", () => {
-        let restoCourant = new restaurant.Resto(id, nom, adresse, gps);
-        console.log('resto courant : ' + restoCourant);
         uiReservation.uiForm(restoCourant);
     });
 }
@@ -105,6 +91,8 @@ function addMarkerEtablissementEnsSup(lat, lng, nom, adresse){
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
     GroupeMarkerVlib.addLayer(marker);
 }
+
+
 
 var JsonObject
 var xhr = new XMLHttpRequest();
@@ -123,7 +111,6 @@ xhr.onreadystatechange = function() {
 xhr.send();
 await init();
 
-const xhr2 = new XMLHttpRequest();
-xhr2.open("POST", "http://localhost:8000/api/resa", true);
 
-xhr2.send("id,nom,prenom,nb,tel")
+
+

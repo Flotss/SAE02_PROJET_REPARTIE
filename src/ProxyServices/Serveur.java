@@ -57,7 +57,8 @@ class ServeurResa implements HttpHandler {
         exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
         byte[] allBytes = exchange.getRequestBody().readAllBytes();
         String content = new String(allBytes, "UTF-8");
-        serveur.Reservation(content.split(","));
+        //serveur.Reservation(content.split(","));
+        System.out.println(Arrays.toString(content.split(",")));
     }
 }
 
