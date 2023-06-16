@@ -68,6 +68,7 @@ export async function init() {
     L.control.layers(null, SelecteurAffichage).addTo(map);
 
     let stations = await getStationData();
+
     for (const station of stations) {
         let stationData = station[1];
         let bikeAvailability = await getBikeAvailability(stationData.id);
@@ -77,7 +78,7 @@ export async function init() {
 
     let incidents = await getCirculationIncidents();
     for (const incident of incidents) {
-        addMarkerIncidentCirculation(incident.lat, incident.lon, incident.description, incident.location, incident.start, incident.end);
+        addMarkerIncidentCirculation(incident.lat, incident.lon, incident.description, incident.location, incident.start, incident.end, incident.city, incident.postcode);
     }
 
     //A supprimé par la suite
@@ -98,52 +99,52 @@ export async function init() {
 
 function addMarkerResto(gps, id, nom, adresse) {
     let coordonnes = gps.split(',');
-    var marker = L.marker([coordonnes[0], coordonnes[1]], {icon: iconResto});
+    var marker = L.marker([coordonnes[0], coordonnes[1]],{icon: iconResto});
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`);
     GroupeMarkerResto.addLayer(marker);
+    let restoCourant = new restaurant.Resto(id, nom, adresse, gps);
     marker.on("click", () => {
+<<<<<<< HEAD
         let restoCourant = new restaurant.Resto(id, nom, adresse, gps);
         console.log('resto courant : ' + restoCourant);
         uiReservation.uiForm(restoCourant, marker);
+=======
+        uiReservation.uiForm(restoCourant);
+>>>>>>> origin/main
     });
 }
 
-function addMarkerVlib(lat, lng, nom, nbVeloDispo, nbPlaceParkingDispo, adresse) {
-    var marker = L.marker([lat, lng], {icon: iconVlib});
+function addMarkerVlib(lat, lng, nom, nbVeloDispo,nbPlaceParkingDispo , adresse){
+    var marker = L.marker([lat,lng],{icon: iconVlib});
     marker.bindPopup(`<b>${nom}</b><br>${adresse}<br>Nombre vélo dispo: ${nbVeloDispo}<br>Nombre places parking dispo: ${nbPlaceParkingDispo}`).openPopup();
     GroupeMarkerVlib.addLayer(marker);
 }
 
-function addMarkerEtablissementEnsSup(lat, lng, nom, adresse) {
-    var marker = L.marker([lat, lng], {icon: iconEcole});
+function addMarkerEtablissementEnsSup(lat, lng, nom, adresse){
+    var marker = L.marker([lat,lng],{icon: iconEcole});
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
     GroupeMarkerVlib.addLayer(marker);
 }
 
-function addMarkerIncidentCirculation(lat, lng, descr, adresse, start, end) {
-    let marker = L.marker([lat, lng], {icon: iconIncident});
-    marker.bindPopup(`<b>${descr}</b><br>${adresse}<br>Début: ${start}<br>Fin: ${end}`).openPopup();
-    GroupeMarkerIncidents.addLayer(marker);
-}
 
-// var JsonObject
-// var xhr = new XMLHttpRequest();
-// xhr.open("GET", "http://localhost:8000/api/resto", true);
-// xhr.onreadystatechange = function () {
-//     if (xhr.readyState === 4 && xhr.status === 200) {
-//         JsonObject = JSON.parse(xhr.response);
-//         for (let i = 0; i < JsonObject.restaurants.length; i++) {
-//             addMarkerResto(JsonObject.restaurants[i].GPS, JsonObject.restaurants[i].ID, JsonObject.restaurants[i].NOM, JsonObject.restaurants[i].ADRESSE);
-//         }
-//     } else {
-//         if (xhr.status !== 200)
-//             console.log("La requête a échoué. Code de réponse : " + xhr.status);
-//     }
-// };
-// xhr.send();
+
+var JsonObject
+var xhr = new XMLHttpRequest();
+xhr.open("GET", "http://localhost:8000/api/resto", true);
+xhr.onreadystatechange = function() {
+    if (xhr.readyState === 4 && xhr.status === 200) {
+        JsonObject = JSON.parse(xhr.response);
+        for(let i = 0; i < JsonObject.restaurants.length; i++) {
+            addMarkerResto(JsonObject.restaurants[i].GPS, JsonObject.restaurants[i].ID, JsonObject.restaurants[i].NOM, JsonObject.restaurants[i].ADRESSE);
+        }
+    } else {
+        if (xhr.status !== 200)
+            console.log("La requête a échoué. Code de réponse : " + xhr.status);
+    }
+};
+xhr.send();
 await init();
-//
-// const xhr2 = new XMLHttpRequest();
-// xhr2.open("POST", "http://localhost:8000/api/resa", true);
-//
-// xhr2.send("id,nom,prenom,nb,tel")
+
+
+
+
