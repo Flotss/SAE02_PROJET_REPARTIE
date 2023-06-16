@@ -61,8 +61,16 @@ nav img{
     position: relative;
 }
 
-.carteNav::before, .rapportNav::before{
+.rapportNav::before{
+    content: "Rapport";
+}
+
+.carteNav::before{
     content:"Carte";
+}
+
+.carteNav::before, .rapportNav::before{
+
     clip-path: polygon(0% 50%,
     10% 30%,
     10% 0%,
