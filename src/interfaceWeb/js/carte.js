@@ -39,8 +39,8 @@ const iconResto = L.icon({
 
 const iconIncident = L.icon({
     iconUrl: 'stylesheet/image/logoIncident.png',
-    iconSize: [70, 70], // size of the icon
-    iconAnchor: [35, 54], // point of the icon which will correspond to marker's location
+    iconSize: [30, 30], // size of the icon
+    iconAnchor: [14, 26], // point of the icon which will correspond to marker's location
     popupAnchor: [1, -30]
 })
 
@@ -82,18 +82,10 @@ export async function init() {
     }
 
     //A supprimé par la suite
-    let lat = 48.7;
-    let lng = 6.2;
-    let nom = "La rivière";
-    let adresse = "Dans Nancy";
-    addMarkerResto("48.71, 6.2", 1, "best Resto ever", "pas important");
-    var markerResto1 = L.marker([lat, lng], {icon: iconResto});
-    markerResto1.bindPopup(`<b>${nom}</b><br>${adresse}`);
 
     var markerEtablissementSup = L.marker([48.69, 6.21], {icon: iconEcole});
     markerEtablissementSup.bindPopup(`Test`);
 
-    GroupeMarkerResto.addLayer(markerResto1);
     GroupeMarkerEtablissementEnsSup.addLayer(markerEtablissementSup);
 }
 
