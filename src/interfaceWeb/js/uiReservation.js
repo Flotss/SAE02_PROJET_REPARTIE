@@ -61,7 +61,6 @@ node.innerHTML = html;
             }, 500); // Supprime la division après 500 millisecondes (0,5 seconde)
         }
     });
-
 }
 
 export default {
