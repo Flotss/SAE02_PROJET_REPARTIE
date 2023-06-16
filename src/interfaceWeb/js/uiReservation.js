@@ -42,7 +42,7 @@ function uiForm(restaurantt){
          <label for="telephone">Téléphone</label>
          <input type="tel" id="telephone" required><br>
     </div>
-        <button type="submit" onclick="${submitForm(restaurantt)}">Réserver</button>
+        <button type="submit" onclick="submitForm">Réserver</button>
 </form>`
 ;
 
