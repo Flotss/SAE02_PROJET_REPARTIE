@@ -11,6 +11,11 @@ function submitForm(resto) {
 
 function uiForm(restaurantt){
 
+    let node = document.createElement("div");
+    document.querySelector("#affichageMap").appendChild(node);
+    //node.setAttribute("id", "formReservation");
+    node.classList.add("formReservation");
+
     console.log('restaurant name : ' + restaurantt.nom)
 
     let html = `
@@ -41,7 +46,10 @@ function uiForm(restaurantt){
 </form>`
 ;
 
-document.querySelector('#formReservation').innerHTML = html;
+node.innerHTML = html;
+    setTimeout(function() {
+        node.classList.add("show");
+    }, 10);
 
 }
 

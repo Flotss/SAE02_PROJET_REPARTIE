@@ -55,5 +55,3 @@ function convertDateToFrench(date) {
     const options = {year: 'numeric', month: 'numeric', day: 'numeric'};
     return date.toLocaleDateString('fr-FR', options);
 }
-
-getCirculationIncidents().then((r => console.log(r)));
