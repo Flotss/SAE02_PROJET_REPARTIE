@@ -104,7 +104,7 @@ function addMarkerResto(gps, id, nom, adresse) {
     marker.on("click", () => {
         let restoCourant = new restaurant.Resto(id, nom, adresse, gps);
         console.log('resto courant : ' + restoCourant);
-        uiReservation.uiForm(restoCourant);
+        uiReservation.uiForm(restoCourant, marker);
     });
 }
 

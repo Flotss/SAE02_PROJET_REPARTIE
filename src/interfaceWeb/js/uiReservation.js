@@ -16,7 +16,7 @@ function submitForm(event, restaurant) {
     restaurant.reserver(nom, prenom, nbConvives, telephone);
 }
 
-function uiForm(restaurantt){
+function uiForm(restaurantt, marker){
 
     let node = document.createElement("div");
     document.querySelector("#affichageMap").appendChild(node);
@@ -57,6 +57,17 @@ node.innerHTML = html;
     setTimeout(function() {
         node.classList.add("show");
     }, 10);
+
+    document.addEventListener("click", function(event) {
+        const isClickedInsideNode = node.contains(event.target);
+        console.log('isClickedInsideNode : ' + isClickedInsideNode);
+        if (!isClickedInsideNode && (event.target.toLocaleString() !== '[object HTMLImageElement]')) {
+            node.classList.remove("show");
+            setTimeout(function() {
+                node.remove();
+            }, 500); // Supprime la division après 500 millisecondes (0,5 seconde)
+        }
+    });
 
 }
 

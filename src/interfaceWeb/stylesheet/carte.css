@@ -14,6 +14,10 @@
 /*header*/
 h1, h2{
     font-family: "Swifted";
+    font-size: 70px;
+}
+h2{
+    font-size: 30px;
 }
 
 .header{
@@ -21,6 +25,7 @@ h1, h2{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 50px;
 }
 
 body{
@@ -56,35 +61,7 @@ nav img{
     position: relative;
 }
 
-.rapportNav::before{
-    content:"Rapport";
-    clip-path: polygon(0% 50%,
-    10% 30%,
-    10% 0%,
-    100% 0%,
-    100% 100%,
-    10% 100%,
-    10% 70%
-    );
-    width: 0px;
-    height: 40px;
-    background-color: #add19e;
-    margin-left: 10px;
-    position: absolute;
-    top: 20%;
-    left: 50%;
-    z-index: -1;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: 10%;
-    padding-right: -10%;
-    opacity: 0;
-    transition: 1s ease;
-    font-size: 15px;
-    color: transparent;
-}
-.carteNav::before{
+.carteNav::before, .rapportNav::before{
     content:"Carte";
     clip-path: polygon(0% 50%,
     10% 30%,
@@ -94,13 +71,13 @@ nav img{
     10% 100%,
     10% 70%
     );
-    width: 0px;
+    width: 100px;
     height: 40px;
     background-color: #add19e;
     margin-left: 10px;
     position: absolute;
-    top: 20%;
-    left: 50%;
+    top: 50%;
+    left: 100%;
     z-index: -1;
     display: flex;
     justify-content: center;
@@ -115,7 +92,6 @@ nav img{
 
 .rapportNav:hover::before, .carteNav:hover::before {
     opacity: 1;
-    width: 100px;
     top: 20%;
     left: 100%;
     transition: 1s ease;
