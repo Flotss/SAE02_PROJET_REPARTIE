@@ -1,5 +1,3 @@
-import Restaurant from "./restaurant.js";
-
 function submitForm(resto) {
     const nom = document.getElementById('nom').value;
     const prenom = document.getElementById('prenom').value;
@@ -9,7 +7,7 @@ function submitForm(resto) {
     resto.reserver(nom, prenom, nbConvives, telephone);
 }
 
-function uiForm(restaurantt){
+function uiForm(restaurantt) {
 
     let node = document.createElement("div");
     document.querySelector("#affichageMap").appendChild(node);
@@ -43,20 +41,19 @@ function uiForm(restaurantt){
          <input type="tel" id="telephone" required><br>
     </div>
         <button type="submit" onclick="submitForm">Réserver</button>
-</form>`
-;
+</form>`;
 
-node.innerHTML = html;
-    setTimeout(function() {
+    node.innerHTML = html;
+    setTimeout(function () {
         node.classList.add("show");
     }, 10);
 
-    document.addEventListener("click", function(event) {
+    document.addEventListener("click", function (event) {
         const isClickedInsideNode = node.contains(event.target);
         console.log('isClickedInsideNode : ' + isClickedInsideNode);
         if (!isClickedInsideNode && (event.target.toLocaleString() !== '[object HTMLImageElement]')) {
             node.classList.remove("show");
-            setTimeout(function() {
+            setTimeout(function () {
                 node.remove();
             }, 500); // Supprime la division après 500 millisecondes (0,5 seconde)
         }

@@ -16,13 +16,13 @@ import java.rmi.registry.LocateRegistry;
 import java.sql.SQLException;
 import java.util.Arrays;
 
-class ServeurResto implements HttpHandler {
+class ServeurRestauration implements HttpHandler {
 
     String response;
 
     Serveur serveur;
 
-    public ServeurResto(Serveur serveur) {
+    public ServeurRestauration(Serveur serveur) {
             this.serveur = serveur;
         }
 
@@ -43,11 +43,11 @@ class ServeurResto implements HttpHandler {
 
 }
 
-class ServeurResa implements HttpHandler {
+class ServeurReservation implements HttpHandler {
 
     Serveur serveur;
 
-    public ServeurResa(Serveur serveur) {
+    public ServeurReservation(Serveur serveur) {
         this.serveur = serveur;
     }
 
@@ -142,15 +142,15 @@ class Serveur{
 
         HttpServer server = null;
         try {
-            server = HttpServer.create(new InetSocketAddress(8000), 0);
+            server = HttpServer.create(new InetSocketAddress(80), 0);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
 
         Serveur serveur = new Serveur("localhost", 6789);
 
-        server.createContext("/api/resto", new ServeurResto(serveur));
-        server.createContext("/api/resa", new ServeurResa(serveur));
+        server.createContext("/api/restaurations", new ProxyServices.ServeurRestauration(serveur));
+        server.createContext("/api/reservation", new ProxyServices.ServeurReservation(serveur));
         server.createContext("/api/proxy", new ServeurProxy(serveur));
         server.start();
     }

@@ -69,7 +69,7 @@ export async function init() {
 
     var JsonObject
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost:8000/api/resto", true);
+    xhr.open("GET", "http://localhost/api/restaurations", true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             JsonObject = JSON.parse(xhr.response);
