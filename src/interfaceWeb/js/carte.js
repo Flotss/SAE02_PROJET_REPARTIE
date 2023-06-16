@@ -41,7 +41,7 @@ const iconIncident = L.icon({
     iconUrl: 'stylesheet/image/logoIncident.png',
     iconSize: [30, 30], // size of the icon
     iconAnchor: [14, 26], // point of the icon which will correspond to marker's location
-    popupAnchor: [1, -30]
+    popupAnchor: [2, -17]
 })
 
 const SelecteurAffichage = {
@@ -66,6 +66,23 @@ export async function init() {
 
 
     L.control.layers(null, SelecteurAffichage).addTo(map);
+
+    var JsonObject
+    var xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://localhost/api/restaurations", true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            JsonObject = JSON.parse(xhr.response);
+            for (let i = 0; i < JsonObject.restaurants.length; i++) {
+                addMarkerResto(JsonObject.restaurants[i].GPS, JsonObject.restaurants[i].ID, JsonObject.restaurants[i].NOM, JsonObject.restaurants[i].ADRESSE);
+            }
+        } else {
+            if (xhr.status !== 200)
+                console.log("La requête a échoué. Code de réponse : " + xhr.status);
+        }
+    };
+    xhr.send();
+
 
     let stations = await getStationData();
 
@@ -120,21 +137,7 @@ function addMarkerIncidentsCirculation(lat, lng, descr, adresse, start, end, cit
     GroupeMarkerIncidents.addLayer(marker);
 }
 
-var JsonObject
-var xhr = new XMLHttpRequest();
-xhr.open("GET", "http://localhost:8000/api/resto", true);
-xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-        JsonObject = JSON.parse(xhr.response);
-        for (let i = 0; i < JsonObject.restaurants.length; i++) {
-            addMarkerResto(JsonObject.restaurants[i].GPS, JsonObject.restaurants[i].ID, JsonObject.restaurants[i].NOM, JsonObject.restaurants[i].ADRESSE);
-        }
-    } else {
-        if (xhr.status !== 200)
-            console.log("La requête a échoué. Code de réponse : " + xhr.status);
-    }
-};
-xhr.send();
+
 await init();
 
 
