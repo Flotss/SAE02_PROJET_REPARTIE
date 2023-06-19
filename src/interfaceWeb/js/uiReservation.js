@@ -15,9 +15,7 @@ function submitForm(resto) {
 }
 
 function uiForm(restaurantt, marker){
-
     markerCourant = marker;
-
     let node = document.createElement("div");
     document.querySelector("#affichageMap").appendChild(node);
     //node.setAttribute("id", "formReservation");
@@ -60,9 +58,7 @@ node.innerHTML = html;
 
     document.addEventListener("click", function(event) {
         const isClickedInsideNode = node.contains(event.target);
-        console.log('isClickedInsideNode : ' + isClickedInsideNode);
         const isClickedOnMarker = markers.includes(markerCourant);
-        console.log('isClickedOnMarker : ' + isClickedOnMarker);
         if (!isClickedInsideNode && !isClickedOnMarker) {
             markerCourant = null;
             node.classList.remove("show");
