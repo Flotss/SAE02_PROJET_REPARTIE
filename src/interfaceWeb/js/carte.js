@@ -67,43 +67,13 @@ export async function init() {
 
     L.control.layers(null, SelecteurAffichage).addTo(map);
 
-    var JsonObject
-    var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost/api/restaurations", true);
-    xhr.onreadystatechange = function () {
-        if (xhr.readyState === 4 && xhr.status === 200) {
-            JsonObject = JSON.parse(xhr.response);
-            for (let i = 0; i < JsonObject.restaurants.length; i++) {
-                addMarkerResto(JsonObject.restaurants[i].GPS, JsonObject.restaurants[i].ID, JsonObject.restaurants[i].NOM, JsonObject.restaurants[i].ADRESSE);
-            }
-        } else {
-            if (xhr.status !== 200)
-                console.log("La requête a échoué. Code de réponse : " + xhr.status);
-        }
-    };
-    xhr.send();
+    afficherRestaurants();
 
+    await afficherStationsVelib();
 
-    let stations = await getStationData();
+    await afficherIncidents()
 
-    for (const station of stations) {
-        let stationData = station[1];
-        let bikeAvailability = await getBikeAvailability(stationData.id);
-        let stationAvailability = await getStationAvailability(stationData.id);
-        addMarkerVlib(stationData.lat, stationData.lon, stationData.name, bikeAvailability, stationAvailability, stationData.address);
-    }
-
-    let incidents = await getCirculationIncidents();
-    for (const incident of incidents) {
-        addMarkerIncidentsCirculation(incident.lat, incident.lon, incident.description, incident.location, incident.start, incident.end, incident.city, incident.postcode);
-    }
-
-    //A supprimé par la suite
-
-    var markerEtablissementSup = L.marker([48.69, 6.21], {icon: iconEcole});
-    markerEtablissementSup.bindPopup(`Test`);
-
-    GroupeMarkerEtablissementEnsSup.addLayer(markerEtablissementSup);
+    afficherEtablissementsSup()
 }
 
 function addMarkerResto(gps, id, nom, adresse) {
@@ -120,13 +90,13 @@ function addMarkerResto(gps, id, nom, adresse) {
 }
 
 function addMarkerVlib(lat, lng, nom, nbVeloDispo, nbPlaceParkingDispo, adresse) {
-    var marker = L.marker([lat, lng], {icon: iconVlib});
+    const marker = L.marker([lat, lng], {icon: iconVlib});
     marker.bindPopup(`<b>${nom}</b><br>${adresse}<br>Nombre vélo dispo: ${nbVeloDispo}<br>Nombre places parking dispo: ${nbPlaceParkingDispo}`).openPopup();
     GroupeMarkerVlib.addLayer(marker);
 }
 
 function addMarkerEtablissementEnsSup(lat, lng, nom, adresse) {
-    var marker = L.marker([lat, lng], {icon: iconEcole});
+    const marker = L.marker([lat, lng], {icon: iconEcole});
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
     GroupeMarkerVlib.addLayer(marker);
 }
@@ -135,6 +105,58 @@ function addMarkerIncidentsCirculation(lat, lng, descr, adresse, start, end, cit
     let marker = L.marker([lat, lng], {icon: iconIncident});
     marker.bindPopup(`<b>${descr}</b><br>${adresse} ${postcode} ${city}<br>Début: ${start}<br>Fin: ${end}`).openPopup();
     GroupeMarkerIncidents.addLayer(marker);
+}
+
+function afficherRestaurants(){
+    GroupeMarkerResto.clearLayers();
+
+    let JsonObject;
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://localhost/api/restaurations", true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            JsonObject = JSON.parse(xhr.response);
+            for (let i = 0; i < JsonObject.restaurants.length; i++) {
+                addMarkerResto(JsonObject.restaurants[i].GPS, JsonObject.restaurants[i].ID, JsonObject.restaurants[i].NOM, JsonObject.restaurants[i].ADRESSE);
+            }
+        } else {
+            if (xhr.status !== 200)
+                console.log("La requête a échoué. Code de réponse : " + xhr.status);
+        }
+    };
+    xhr.send();
+}
+
+async function afficherStationsVelib(){
+    GroupeMarkerVlib.clearLayers();
+
+    let stations = await getStationData();
+
+    for (const station of stations) {
+        let stationData = station[1];
+        let bikeAvailability = await getBikeAvailability(stationData.id);
+        let stationAvailability = await getStationAvailability(stationData.id);
+        addMarkerVlib(stationData.lat, stationData.lon, stationData.name, bikeAvailability, stationAvailability, stationData.address);
+    }
+}
+
+async function afficherIncidents(){
+    GroupeMarkerIncidents.clearLayers();
+
+    let incidents = await getCirculationIncidents();
+    for (const incident of incidents) {
+        addMarkerIncidentsCirculation(incident.lat, incident.lon, incident.description, incident.location, incident.start, incident.end, incident.city, incident.postcode);
+    }
+}
+
+function afficherEtablissementsSup(){
+    //TODO
+    GroupeMarkerEtablissementEnsSup.clearLayers();
+
+    const markerEtablissementSup = L.marker([48.69, 6.21], {icon: iconEcole});
+    markerEtablissementSup.bindPopup(`Test`);
+
+    GroupeMarkerEtablissementEnsSup.addLayer(markerEtablissementSup);
 }
 
 
