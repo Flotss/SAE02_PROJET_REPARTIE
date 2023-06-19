@@ -6,6 +6,7 @@ import {enregisterNouveauRestaurant, generateForm} from "./addRestaurant.js";
 
 console.log('Hi map ! ');
 
+
 const nancy = {
     lat: 48.6921,
     lng: 6.1844,
@@ -95,13 +96,16 @@ function addMarkerResto(gps, id, nom, adresse) {
     let coordonnes = gps.split(',');
     var marker = L.marker([coordonnes[0], coordonnes[1]], {icon: iconResto});
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`);
+
     GroupeMarkerResto.addLayer(marker);
     let restoCourant = new restaurant.Resto(id, nom, adresse, gps);
     marker.on("click", () => {
+        uiReservation.markers.push(marker);
         let restoCourant = new restaurant.Resto(id, nom, adresse, gps);
         console.log('resto courant : ' + restoCourant);
-        uiReservation.uiForm(restoCourant);
+        uiReservation.uiForm(restoCourant, marker);
     });
+
 }
 
 function addMarkerVlib(lat, lng, nom, nbVeloDispo, nbPlaceParkingDispo, adresse) {

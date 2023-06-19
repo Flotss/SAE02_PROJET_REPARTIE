@@ -1,5 +1,5 @@
-export function generateForm(e){
-    return "<form id='formNewRestaurant' method='post'>"
+export function generateForm(e) {
+    return "<form id='formNewRestaurant' method='post' style=''>"
         + "<div class='form-group'>"
         + "<label for='nom'>Nom du restaurant</label>"
         + "<input type='text' class='form-control' id='nom' name='nom' placeholder='Nom du restaurant'>"
@@ -20,7 +20,7 @@ export function generateForm(e){
         + "</form>";
 }
 
-export function enregisterNouveauRestaurant(){
+export function enregisterNouveauRestaurant() {
 
     const nom = document.getElementById('nom').value;
     const adr = document.getElementById('adresse').value;
@@ -31,3 +31,4 @@ export function enregisterNouveauRestaurant(){
     xhr.open("POST", "http://localhost:8000/api/addRestaurant", true);
     xhr.send(nom + "," + adr + "," + lat + "," + long);
 }
+

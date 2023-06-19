@@ -10,7 +10,6 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.rmi.RemoteException;
-import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 
 public class ServiceProxyBlocage implements ServiceProxyBlocageInterface {
@@ -24,22 +23,22 @@ public class ServiceProxyBlocage implements ServiceProxyBlocageInterface {
             }
 
             // Si l'URL utilise HTTPS, on ajoute le certificat à la liste des certificats de confiance
-                SSLContext sslContext = SSLContext.getInstance("TLS");
-                sslContext.init(null, new TrustManager[]{new X509TrustManager() {
-                    public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-                    }
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, new TrustManager[]{new X509TrustManager() {
+                public void checkClientTrusted(X509Certificate[] chain, String authType) {
+                }
 
-                    public void checkServerTrusted(X509Certificate[] chain, String authType) throws CertificateException {
-                    }
+                public void checkServerTrusted(X509Certificate[] chain, String authType) {
+                }
 
-                    public X509Certificate[] getAcceptedIssuers() {
-                        return new X509Certificate[0];
-                    }
-                }}, new java.security.SecureRandom());
-                HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
+                public X509Certificate[] getAcceptedIssuers() {
+                    return new X509Certificate[0];
+                }
+            }}, new java.security.SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
 
-                // Ajout du certificat de confiance
-                HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
+            // Ajout du certificat de confiance
+            HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
 
 
             // Création de l'objet URL à partir de l'URL spécifiée
@@ -70,7 +69,7 @@ public class ServiceProxyBlocage implements ServiceProxyBlocageInterface {
             String status = (code == 200) ? "OK" : "ERROR";
 
 
-            return "{ \"status\": \"" + status + "\", \"code\": " + code + ", \"response\": " + response.toString() + " }";
+            return "{ \"status\": \"" + status + "\", \"code\": " + code + ", \"response\": " + response + " }";
         } catch (IOException e) {
             System.out.println("Erreur lors de la requête HTTP: \n" + e.getMessage());
             return "{ status: \"ERROR\", code: 500, response: \"Erreur lors de la requête HTTP : " + e.getMessage() + "\" }";

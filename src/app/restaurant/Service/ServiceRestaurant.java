@@ -15,8 +15,7 @@ public class ServiceRestaurant implements ServiceRestaurantInterface {
     final static String PWD = "Nardos2002@";
 
     public ServiceRestaurant() throws SQLException {
-        String url = "jdbc:oracle:thin:@charlemagne.iutnc.univ-lorraine.fr:1521:infodb";
-        connection = DriverManager.getConnection(url, "amirbeky1u", "Nardos2002@");
+        connection = DriverManager.getConnection(URL_DB, USER, PWD);
     }
 
     @Override
@@ -68,7 +67,7 @@ public class ServiceRestaurant implements ServiceRestaurantInterface {
 
 
     @Override
-    public String reserverResto(String idRestaurant, String nom, String prenom, String nb, String tel) throws RemoteException {
+    public String makeReservation(String idRestaurant, String nom, String prenom, String nb, String tel) throws RemoteException {
         try {
             System.out.println("Réservation en cours...");
             PreparedStatement ps = connection.prepareStatement("insert into Reservation (IDRESTAURANT, NOM, PRENOM, NBCONVIVES, TELEPHONE) values (?, ?, ?, ?, ?)");

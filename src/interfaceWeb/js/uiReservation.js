@@ -1,6 +1,8 @@
-import Restaurant from "./restaurant.js";
+let resto
 
-let resto;
+
+let markers = [];
+let markerCourant = null;
 
 function submitForm() {
     const nom = document.getElementById('nom').value;
@@ -11,17 +13,15 @@ function submitForm() {
     resto.reserver(nom, prenom, nbConvives, telephone);
 }
 
-function uiForm(restaurantt){
-
-    resto = restaurantt
-
+function uiForm(restaurantt, marker){
+    markerCourant = marker;
+    resto = restaurantt;
     let node = document.createElement("div");
     document.querySelector("#affichageMap").appendChild(node);
     //node.setAttribute("id", "formReservation");
     node.classList.add("formReservation");
 
-    const div = document.createElement("div");
-    div.innerHTML = `
+    let html = `
         <div id="informationRestoForm">
           <h2>${restaurantt.nom}</h2>
            <p>${restaurantt.adresse}</p>
@@ -49,25 +49,33 @@ function uiForm(restaurantt){
                 <button type="button" id="submit">Réserver</button>
         </form>`;
 
-    node.appendChild(div);
+node.innerHTML = html;
     setTimeout(function() {
         node.classList.add("show");
     }, 10);
 
     document.addEventListener("click", function(event) {
         const isClickedInsideNode = node.contains(event.target);
-        if (!isClickedInsideNode && (event.target.toLocaleString() !== '[object HTMLImageElement]')) {
+        const isClickedOnMarker = markers.includes(markerCourant);
+        if (!isClickedInsideNode && !isClickedOnMarker) {
+            markerCourant = null;
             node.classList.remove("show");
+            markers.pop(markerCourant);
             setTimeout(function() {
                 node.remove();
             }, 500); // Supprime la division après 500 millisecondes (0,5 seconde)
+            if(isClickedOnMarker){
+               uiForm(restaurantt, marker);
+            }
+
         }
     });
 
-    div.getElementsByTagName("button")[0].addEventListener("click",submitForm);
+    node.getElementsByTagName("button")[0].addEventListener("click", submitForm);
 
 }
 
 export default {
     uiForm: uiForm,
+    markers: markers,
 }
