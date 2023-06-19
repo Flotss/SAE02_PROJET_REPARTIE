@@ -21,8 +21,8 @@ import java.util.Arrays;
 
 public class Serveur {
 
-    ServiceRestaurantInterface sr;
-    ServiceProxyBlocageInterface spb;
+    private final ServiceRestaurantInterface sr;
+    private final ServiceProxyBlocageInterface spb;
 
     public Serveur(String adress, int port) {
         try {
