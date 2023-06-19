@@ -2,7 +2,7 @@ package ProxyServices;
 
 import app.LancerService;
 import app.proxy.ServiceProxyBlocageInterface;
-import app.restaurant.ServiceRestaurantInterface;
+import app.restaurant.Service.ServiceRestaurantInterface;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;

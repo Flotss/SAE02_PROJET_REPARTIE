@@ -1,4 +1,4 @@
-package app.restaurant;
+package app.restaurant.Service;
 
 import java.rmi.RemoteException;
 import java.sql.*;
@@ -9,6 +9,10 @@ import java.util.List;
 public class ServiceRestaurant implements ServiceRestaurantInterface {
 
     Connection connection;
+
+    final static String URL_DB = "jdbc:oracle:thin:@charlemagne.iutnc.univ-lorraine.fr:1521:infodb";
+    final static String USER = "amirbeky1u";
+    final static String PWD = "Nardos2002@";
 
     public ServiceRestaurant() throws SQLException {
         String url = "jdbc:oracle:thin:@charlemagne.iutnc.univ-lorraine.fr:1521:infodb";
