@@ -10,6 +10,8 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -111,6 +113,8 @@ class ServeurProxy implements HttpHandler {
     }
 
     public void handle(HttpExchange exchange) throws IOException {
+
+        System.out.println("ici");
         // Ajouter les en-têtes CORS
         exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://localhost:63342");
         exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST");
@@ -130,6 +134,8 @@ class ServeurProxy implements HttpHandler {
         outputStream.close();
     }
 }
+
+
 
 class Serveur{
 
@@ -184,7 +190,6 @@ class Serveur{
 
     public static void main(String[] args) {
         LancerService.start();
-
 
         HttpServer server = null;
         try {
