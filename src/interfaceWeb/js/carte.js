@@ -51,13 +51,23 @@ const SelecteurAffichage = {
     "Incidents circulation": GroupeMarkerIncidents
 };
 
-
 export async function init() {
     const map = L.map('map', {
         center: [nancy.lat, nancy.lng],
         zoom: zoomLevel,
         layers: [GroupeMarkerResto]
     });
+
+    var popup = L.popup();
+
+    function onMapClick(e) {
+        popup
+            .setLatLng(e.latlng)
+            .setContent("You clicked the map at " + e.latlng.toString())
+            .openOn(map);
+    }
+
+    map.on('click', onMapClick);
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
@@ -69,7 +79,7 @@ export async function init() {
 
     var JsonObject
     var xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost/api/restaurations", true);
+    xhr.open("GET", "http://localhost:8000/api/restaurations", true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             JsonObject = JSON.parse(xhr.response);
