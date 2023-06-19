@@ -71,6 +71,35 @@ class ServeurReservation implements HttpHandler {
     }
 }
 
+class ServeurAjoutRestaurant implements HttpHandler {
+
+    Serveur serveur;
+
+    String response;
+
+    public ServeurAjoutRestaurant(Serveur serveur) {
+        this.serveur = serveur;
+    }
+
+    public void handle(HttpExchange exchange) throws IOException {
+        // Ajouter les en-têtes CORS
+        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://localhost:63342");
+        exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST");
+        exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
+        byte[] allBytes = exchange.getRequestBody().readAllBytes();
+        String content = new String(allBytes, "UTF-8");
+        //serveur.Reservation(content.split(","));
+        System.out.println(Arrays.toString(content.split(",")));
+        this.response = this.serveur.addRestaurant(content.split(","));
+
+        exchange.sendResponseHeaders(200, this.response.getBytes().length);
+        OutputStream outputStream = exchange.getResponseBody();
+        outputStream.write(this.response.getBytes());
+        outputStream.close();
+    }
+}
+
+
 class ServeurProxy implements HttpHandler {
 
     Serveur serveur;
@@ -126,6 +155,14 @@ class Serveur{
         }
     }
 
+    public String addRestaurant(String[] val){
+        try {
+            return sr.addRestaurant(val[0], val[1], val[2]);
+        } catch (RemoteException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public String getResto(){
         try {
             return sr.getCoordonnees();
@@ -159,6 +196,7 @@ class Serveur{
 
         server.createContext("/api/restaurations", new ProxyServices.ServeurRestauration(serveur));
         server.createContext("/api/reservation", new ProxyServices.ServeurReservation(serveur));
+        server.createContext("/api/addRestaurant", new ProxyServices.ServeurAjoutRestaurant(serveur));
         server.createContext("/api/proxy", new ServeurProxy(serveur));
         server.start();
     }
