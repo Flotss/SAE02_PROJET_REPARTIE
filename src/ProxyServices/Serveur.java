@@ -17,15 +17,6 @@ import java.rmi.registry.LocateRegistry;
 import java.sql.SQLException;
 import java.util.Arrays;
 
-class ServeurResto implements HttpHandler {
-
-    String response;
-
-    Serveur serveur;
-
-    public ServeurResto(Serveur serveur) {
-            this.serveur = serveur;
-        }
 
 
 public class Serveur {

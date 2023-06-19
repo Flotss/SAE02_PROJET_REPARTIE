@@ -1,4 +1,5 @@
-let resto;
+let resto
+
 
 let markers = [];
 let markerCourant = null;
@@ -14,12 +15,13 @@ function submitForm() {
 
 function uiForm(restaurantt, marker){
     markerCourant = marker;
+    resto = restaurantt;
     let node = document.createElement("div");
     document.querySelector("#affichageMap").appendChild(node);
     //node.setAttribute("id", "formReservation");
     node.classList.add("formReservation");
 
-    html = `
+    let html = `
         <div id="informationRestoForm">
           <h2>${restaurantt.nom}</h2>
            <p>${restaurantt.adresse}</p>
@@ -69,7 +71,7 @@ node.innerHTML = html;
         }
     });
 
-    div.getElementsByTagName("button")[0].addEventListener("click", submitForm);
+    node.getElementsByTagName("button")[0].addEventListener("click", submitForm);
 
 }
 
