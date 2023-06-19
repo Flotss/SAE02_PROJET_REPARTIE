@@ -11,6 +11,17 @@ class Resto {
         const xhr2 = new XMLHttpRequest();
         xhr2.open("POST", "http://localhost/api/reservation", true);
         xhr2.send(this.id + "," + nom + "," + prenom + "," + nbConviv + "," + telephone);
+        xhr2.onreadystatechange = () => {
+            if (xhr2.readyState === 4 && xhr2.status === 200) {
+                let JsonObject = JSON.parse(xhr2.response);
+                let formulaire = document.getElementsByClassName("formReservation");
+                formulaire[0].innerHTML = JsonObject.message;
+                setTimeout(() => {
+                    formulaire[0].remove();
+                }, "3000");
+            }
+        }
+
     }
 }
 
