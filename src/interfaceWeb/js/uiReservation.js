@@ -1,5 +1,10 @@
 import Restaurant from "./restaurant.js";
 
+
+let markers = [];
+
+let markerCourant = null;
+
 function submitForm(resto) {
     const nom = document.getElementById('nom').value;
     const prenom = document.getElementById('prenom').value;
@@ -9,7 +14,9 @@ function submitForm(resto) {
     resto.reserver(nom, prenom, nbConvives, telephone);
 }
 
-function uiForm(restaurantt){
+function uiForm(restaurantt, marker){
+
+    markerCourant = marker;
 
     let node = document.createElement("div");
     document.querySelector("#affichageMap").appendChild(node);
@@ -54,15 +61,24 @@ node.innerHTML = html;
     document.addEventListener("click", function(event) {
         const isClickedInsideNode = node.contains(event.target);
         console.log('isClickedInsideNode : ' + isClickedInsideNode);
-        if (!isClickedInsideNode && (event.target.toLocaleString() !== '[object HTMLImageElement]')) {
+        const isClickedOnMarker = markers.includes(markerCourant);
+        console.log('isClickedOnMarker : ' + isClickedOnMarker);
+        if (!isClickedInsideNode && !isClickedOnMarker) {
+            markerCourant = null;
             node.classList.remove("show");
+            markers.pop(markerCourant);
             setTimeout(function() {
                 node.remove();
             }, 500); // Supprime la division après 500 millisecondes (0,5 seconde)
+            if(isClickedOnMarker){
+               uiForm(restaurantt, marker);
+            }
+
         }
     });
 }
 
 export default {
     uiForm: uiForm,
+    markers: markers,
 }
