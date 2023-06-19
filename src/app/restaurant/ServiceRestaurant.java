@@ -64,7 +64,7 @@ public class ServiceRestaurant implements ServiceRestaurantInterface {
 
 
     @Override
-    public void reserverResto(String idRestaurant, String nom, String prenom, String nb, String tel) throws RemoteException {
+    public String reserverResto(String idRestaurant, String nom, String prenom, String nb, String tel) throws RemoteException {
         try {
             System.out.println("Réservation en cours...");
             String SQLInsert = "INSERT INTO RESERVATION (IDRESTAURANT, NOM, PRENOM, NBCONVIVES, TELEPHONE) VALUES (?, ?, ?, ?, ?);";
@@ -76,10 +76,10 @@ public class ServiceRestaurant implements ServiceRestaurantInterface {
             prepStatement.setString(5, tel);
             prepStatement.executeUpdate();
 
-            System.out.println("{ \"status\": \"OK\", \"message\": \"Réservation effectuée\" }");
+            return "{ \"status\": \"OK\", \"message\": \"Réservation effectuée\" }";
         } catch (SQLException e) {
             System.out.println("Erreur lors de la réservation : " + e.getMessage());
-            e.getMessage();
+            return "{ \"status\": \"KO\", \"message\": \"Erreur lors de la réservation\" }";
         }
     }
 }

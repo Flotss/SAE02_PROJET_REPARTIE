@@ -47,6 +47,8 @@ class ServeurReservation implements HttpHandler {
 
     Serveur serveur;
 
+    String response;
+
     public ServeurReservation(Serveur serveur) {
         this.serveur = serveur;
     }
@@ -60,6 +62,12 @@ class ServeurReservation implements HttpHandler {
         String content = new String(allBytes, "UTF-8");
         //serveur.Reservation(content.split(","));
         System.out.println(Arrays.toString(content.split(",")));
+        this.response = this.serveur.reservation(content.split(","));
+
+        exchange.sendResponseHeaders(200, this.response.getBytes().length);
+        OutputStream outputStream = exchange.getResponseBody();
+        outputStream.write(this.response.getBytes());
+        outputStream.close();
     }
 }
 
@@ -110,9 +118,9 @@ class Serveur{
         }
     }
 
-    public void Reservation(String[] val){
+    public String reservation(String[] val){
         try {
-            sr.reserverResto(val[0], val[1], val[2], val[3], val[4]);
+            return sr.reserverResto(val[0], val[1], val[2], val[3], val[4]);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
