@@ -24,7 +24,6 @@ public class ServiceProxyBlocage implements ServiceProxyBlocageInterface {
             }
 
             // Si l'URL utilise HTTPS, on ajoute le certificat à la liste des certificats de confiance
-            if (url.startsWith("https://")) {
                 SSLContext sslContext = SSLContext.getInstance("TLS");
                 sslContext.init(null, new TrustManager[]{new X509TrustManager() {
                     public void checkClientTrusted(X509Certificate[] chain, String authType) throws CertificateException {
@@ -41,7 +40,6 @@ public class ServiceProxyBlocage implements ServiceProxyBlocageInterface {
 
                 // Ajout du certificat de confiance
                 HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
-            }
 
 
             // Création de l'objet URL à partir de l'URL spécifiée
@@ -68,13 +66,17 @@ public class ServiceProxyBlocage implements ServiceProxyBlocageInterface {
             connection.disconnect();
 
             // Envoi de la réponse
-            return "{ code: 200, response: \"" + response + "\" }";
+            int code = connection.getResponseCode();
+            String status = (code == 200) ? "OK" : "ERROR";
+
+
+            return "{ \"status\": \"" + status + "\", \"code\": " + code + ", \"response\": " + response.toString() + " }";
         } catch (IOException e) {
             System.out.println("Erreur lors de la requête HTTP: \n" + e.getMessage());
-            return "{ \"error\": \"Erreur lors de la requête HTTP\" : \"" + e.getMessage() + "\" }";
+            return "{ status: \"ERROR\", code: 500, response: \"Erreur lors de la requête HTTP : " + e.getMessage() + "\" }";
         } catch (Exception e) {
             System.out.println("Erreur lors de l'ajout du certificat de confiance: \n" + e.getMessage());
-            return "{ \"error\": \"Erreur lors de l'ajout du certificat de confiance\" : \"" + e.getMessage() + "\" }";
+            return "{ status: \"ERROR\", code: 500, response: \"Erreur lors de l'ajout du certificat de confiance : " + e.getMessage() + "\" }";
         }
     }
 }

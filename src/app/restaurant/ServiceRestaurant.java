@@ -76,7 +76,7 @@ public class ServiceRestaurant implements ServiceRestaurantInterface {
             prepStatement.setString(5, tel);
             prepStatement.executeUpdate();
 
-            System.out.println("Réservation effectuée avec succès.");
+            System.out.println("{ \"status\": \"OK\", \"message\": \"Réservation effectuée\" }");
         } catch (SQLException e) {
             System.out.println("Erreur lors de la réservation : " + e.getMessage());
             e.getMessage();
