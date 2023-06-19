@@ -82,4 +82,25 @@ public class ServiceRestaurant implements ServiceRestaurantInterface {
             return "{ \"status\": \"KO\", \"message\": \"Erreur lors de la réservation\" }";
         }
     }
+
+
+    @Override
+    public String addRestaurant(String nom, String adresse, String gps) throws RemoteException {
+        try {
+            System.out.println("Ajout du restaurant en cours...");
+            String SQLInsert = "INSERT INTO Restaurant (NOM, ADRESSE, GPS) VALUES (?, ?, ?);";
+            PreparedStatement prepStatement = connection.prepareStatement(SQLInsert);
+            prepStatement.setString(1, nom);
+            prepStatement.setString(2, adresse);
+            prepStatement.setString(3, gps);
+            prepStatement.executeUpdate();
+
+            System.out.println("Restaurant ajouté avec succès.");
+            return "{ \"status\": \"OK\", \"message\": \"Ajout de restaurant réussi\" }";
+        } catch (SQLException e) {
+            System.out.println("Erreur lors de l'ajout du restaurant : " + e.getMessage());
+            return "{ \"status\": \"KO\", \"message\": \"Ajout de restaurant échoué\" }";
+        }
+    }
+
 }
