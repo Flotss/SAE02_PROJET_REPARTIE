@@ -92,7 +92,7 @@ public class ServiceRestaurant implements ServiceRestaurantInterface {
     public String addRestaurant(String nom, String adresse, String gps) throws RemoteException {
         try {
             System.out.println("Ajout du restaurant en cours...");
-            String SQLInsert = "INSERT INTO Restaurant (NOM, ADRESSE, GPS) VALUES (?, ?, ?);";
+            String SQLInsert = "INSERT INTO Restaurant (NOM, ADRESSE, GPS) VALUES (?, ?, ?)";
             PreparedStatement prepStatement = connection.prepareStatement(SQLInsert);
             prepStatement.setString(1, nom);
             prepStatement.setString(2, adresse);

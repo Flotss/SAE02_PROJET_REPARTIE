@@ -157,7 +157,8 @@ class Serveur{
 
     public String addRestaurant(String[] val){
         try {
-            return sr.addRestaurant(val[0], val[1], val[2]);
+            System.out.println(Arrays.toString(val));
+            return sr.addRestaurant(val[0], val[1], val[2] + ", " + val[3]);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
@@ -187,7 +188,7 @@ class Serveur{
 
         HttpServer server = null;
         try {
-            server = HttpServer.create(new InetSocketAddress(80), 0);
+            server = HttpServer.create(new InetSocketAddress(8000), 0);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
