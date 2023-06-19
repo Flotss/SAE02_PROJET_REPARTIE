@@ -46,7 +46,7 @@ function uiForm(restaurantt, marker){
                  <label for="telephone">Téléphone</label>
                  <input type="tel" id="telephone" required><br>
             </div>
-                <button type="button" id="submit">Réserver</button>
+                <button type="button" id="submit"><p>Réserver</p></button>
         </form>`;
 
 node.innerHTML = html;

@@ -16,7 +16,7 @@ export function generateForm(e) {
         + "<label for='lon'>Longitude</label>"
         + "<input type='text' class='form-control' value=" + e.latlng.lng + " id='lon' name='lon' placeholder='Longitude' disabled>"
         + "</div>"
-        + "<button type='submit' class='btn btn-primary'>Ajouter</button>"
+        + "<button type='submit' class='btn btn-primary'><p>Ajouter</p></button>"
         + "</form>";
 }
 
