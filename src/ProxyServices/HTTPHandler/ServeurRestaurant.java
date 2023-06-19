@@ -2,19 +2,14 @@ package ProxyServices.HTTPHandler;
 
 import ProxyServices.Serveur;
 import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class ServeurRestaurant implements HttpHandler {
-
-    String response;
-
-    Serveur serveur;
+public class ServeurRestaurant extends Handler {
 
     public ServeurRestaurant(Serveur serveur) {
-        this.serveur = serveur;
+        super(serveur);
     }
 
     public void handle(HttpExchange exchange) throws IOException {
