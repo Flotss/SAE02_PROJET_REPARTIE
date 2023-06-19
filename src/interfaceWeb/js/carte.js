@@ -117,7 +117,7 @@ function addMarkerVlib(lat, lng, nom, nbVeloDispo, nbPlaceParkingDispo, adresse)
 function addMarkerEtablissementEnsSup(lat, lng, nom, adresse) {
     const marker = L.marker([lat, lng], {icon: iconEcole});
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
-    GroupeMarkerVlib.addLayer(marker);
+    GroupeMarkerEtablissementEnsSup.addLayer(marker);
 }
 
 function addMarkerIncidentsCirculation(lat, lng, descr, adresse, start, end, city, postcode) {
@@ -169,13 +169,26 @@ async function afficherIncidents() {
 }
 
 function afficherEtablissementsSup() {
-    //TODO
-    GroupeMarkerEtablissementEnsSup.clearLayers();
 
-    const markerEtablissementSup = L.marker([48.69, 6.21], {icon: iconEcole});
-    markerEtablissementSup.bindPopup(`Test`);
 
-    GroupeMarkerEtablissementEnsSup.addLayer(markerEtablissementSup);
+    let JsonObject;
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://localhost:8000/api/proxy?url=https://www.data.gouv.fr/fr/datasets/r/5fb6d2e3-609c-481d-9104-350e9ca134fa", true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            JsonObject = JSON.parse(xhr.response);
+            for (let i = 0; i < JsonObject.response.length; i++) {
+                if ("coordonnees" in JsonObject.response[i].fields) {
+                    addMarkerEtablissementEnsSup(JsonObject.response[i].fields.coordonnees[0], JsonObject.response[i].fields.coordonnees[1], JsonObject.response[i].fields.uo_lib, JsonObject.response[i].fields.adresse_uai);
+                }
+            }
+        } else {
+            if (xhr.status !== 200)
+                console.log("La requête a échoué. Code de réponse : " + xhr.status);
+        }
+    };
+    xhr.send();
+
 }
 
 

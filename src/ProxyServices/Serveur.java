@@ -7,10 +7,15 @@ import ProxyServices.HTTPHandler.ServeurRestaurant;
 import app.LancerService;
 import app.proxy.ServiceProxyBlocageInterface;
 import app.restaurant.Service.ServiceRestaurantInterface;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
