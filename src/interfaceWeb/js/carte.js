@@ -2,6 +2,7 @@ import restaurant from "./restaurant.js";
 import uiReservation from "./uiReservation.js";
 import {getBikeAvailability, getStationAvailability, getStationData} from "../../trafficInformations/VelostanNancy.js";
 import {getCirculationIncidents} from "../../trafficInformations/CirculationIncidents.js";
+import {enregisterNouveauRestaurant, generateForm} from "./addRestaurant.js";
 
 console.log('Hi map ! ');
 
@@ -40,9 +41,9 @@ const iconResto = L.icon({
 
 const iconIncident = L.icon({
     iconUrl: 'stylesheet/image/logoIncident.png',
-    iconSize: [70, 70], // size of the icon
-    iconAnchor: [35, 54], // point of the icon which will correspond to marker's location
-    popupAnchor: [1, -30]
+    iconSize: [30, 30], // size of the icon
+    iconAnchor: [14, 26], // point of the icon which will correspond to marker's location
+    popupAnchor: [2, -17]
 })
 
 const SelecteurAffichage = {
@@ -65,37 +66,30 @@ export async function init() {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
+    let popup = L.popup();
+
+
+    function onMapClick(e) {
+        console.log("You clicked the map at " + e.latlng.toString());
+        popup.setLatLng(e.latlng)
+            .setContent(generateForm(e))
+            .openOn(map);
+        document.getElementById('formNewRestaurant').addEventListener('submit', enregisterNouveauRestaurant);
+
+    }
+
+    map.on('click', onMapClick);
+
 
     L.control.layers(null, SelecteurAffichage).addTo(map);
 
-    let stations = await getStationData();
+    afficherRestaurants();
 
-    for (const station of stations) {
-        let stationData = station[1];
-        let bikeAvailability = await getBikeAvailability(stationData.id);
-        let stationAvailability = await getStationAvailability(stationData.id);
-        addMarkerVlib(stationData.lat, stationData.lon, stationData.name, bikeAvailability, stationAvailability, stationData.address);
-    }
+    await afficherStationsVelib();
 
-    let incidents = await getCirculationIncidents();
-    for (const incident of incidents) {
-        addMarkerIncidentsCirculation(incident.lat, incident.lon, incident.description, incident.location, incident.start, incident.end, incident.city, incident.postcode);
-    }
+    await afficherIncidents()
 
-    //A supprimé par la suite
-    let lat = 48.7;
-    let lng = 6.2;
-    let nom = "La rivière";
-    let adresse = "Dans Nancy";
-    addMarkerResto("48.71, 6.2", 1, "best Resto ever", "pas important");
-    var markerResto1 = L.marker([lat, lng], {icon: iconResto});
-    markerResto1.bindPopup(`<b>${nom}</b><br>${adresse}`);
-
-    var markerEtablissementSup = L.marker([48.69, 6.21], {icon: iconEcole});
-    markerEtablissementSup.bindPopup(`Test`);
-
-    GroupeMarkerResto.addLayer(markerResto1);
-    GroupeMarkerEtablissementEnsSup.addLayer(markerEtablissementSup);
+    afficherEtablissementsSup()
 }
 
 function addMarkerResto(gps, id, nom, adresse) {
@@ -115,13 +109,13 @@ function addMarkerResto(gps, id, nom, adresse) {
 }
 
 function addMarkerVlib(lat, lng, nom, nbVeloDispo, nbPlaceParkingDispo, adresse) {
-    var marker = L.marker([lat, lng], {icon: iconVlib});
+    const marker = L.marker([lat, lng], {icon: iconVlib});
     marker.bindPopup(`<b>${nom}</b><br>${adresse}<br>Nombre vélo dispo: ${nbVeloDispo}<br>Nombre places parking dispo: ${nbPlaceParkingDispo}`).openPopup();
     GroupeMarkerVlib.addLayer(marker);
 }
 
 function addMarkerEtablissementEnsSup(lat, lng, nom, adresse) {
-    var marker = L.marker([lat, lng], {icon: iconEcole});
+    const marker = L.marker([lat, lng], {icon: iconEcole});
     marker.bindPopup(`<b>${nom}</b><br>${adresse}`).openPopup();
     GroupeMarkerVlib.addLayer(marker);
 }
@@ -132,21 +126,59 @@ function addMarkerIncidentsCirculation(lat, lng, descr, adresse, start, end, cit
     GroupeMarkerIncidents.addLayer(marker);
 }
 
-var JsonObject
-var xhr = new XMLHttpRequest();
-xhr.open("GET", "http://localhost:8000/api/resto", true);
-xhr.onreadystatechange = function () {
-    if (xhr.readyState === 4 && xhr.status === 200) {
-        JsonObject = JSON.parse(xhr.response);
-        for (let i = 0; i < JsonObject.restaurants.length; i++) {
-            addMarkerResto(JsonObject.restaurants[i].GPS, JsonObject.restaurants[i].ID, JsonObject.restaurants[i].NOM, JsonObject.restaurants[i].ADRESSE);
+function afficherRestaurants() {
+    GroupeMarkerResto.clearLayers();
+
+    let JsonObject;
+    const xhr = new XMLHttpRequest();
+    xhr.open("GET", "http://localhost:8000/api/restaurations", true);
+    xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            JsonObject = JSON.parse(xhr.response);
+            for (let i = 0; i < JsonObject.restaurants.length; i++) {
+                addMarkerResto(JsonObject.restaurants[i].GPS, JsonObject.restaurants[i].ID, JsonObject.restaurants[i].NOM, JsonObject.restaurants[i].ADRESSE);
+            }
+        } else {
+            if (xhr.status !== 200)
+                console.log("La requête a échoué. Code de réponse : " + xhr.status);
         }
-    } else {
-        if (xhr.status !== 200)
-            console.log("La requête a échoué. Code de réponse : " + xhr.status);
+    };
+    xhr.send();
+}
+
+async function afficherStationsVelib() {
+    GroupeMarkerVlib.clearLayers();
+
+    let stations = await getStationData();
+
+    for (const station of stations) {
+        let stationData = station[1];
+        let bikeAvailability = await getBikeAvailability(stationData.id);
+        let stationAvailability = await getStationAvailability(stationData.id);
+        addMarkerVlib(stationData.lat, stationData.lon, stationData.name, bikeAvailability, stationAvailability, stationData.address);
     }
-};
-xhr.send();
+}
+
+async function afficherIncidents() {
+    GroupeMarkerIncidents.clearLayers();
+
+    let incidents = await getCirculationIncidents();
+    for (const incident of incidents) {
+        addMarkerIncidentsCirculation(incident.lat, incident.lon, incident.description, incident.location, incident.start, incident.end, incident.city, incident.postcode);
+    }
+}
+
+function afficherEtablissementsSup() {
+    //TODO
+    GroupeMarkerEtablissementEnsSup.clearLayers();
+
+    const markerEtablissementSup = L.marker([48.69, 6.21], {icon: iconEcole});
+    markerEtablissementSup.bindPopup(`Test`);
+
+    GroupeMarkerEtablissementEnsSup.addLayer(markerEtablissementSup);
+}
+
+
 await init();
 
 

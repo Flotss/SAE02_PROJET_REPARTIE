@@ -2,8 +2,8 @@ package app;
 
 import app.proxy.ServiceProxyBlocage;
 import app.proxy.ServiceProxyBlocageInterface;
-import app.restaurant.ServiceRestaurant;
-import app.restaurant.ServiceRestaurantInterface;
+import app.restaurant.Service.ServiceRestaurant;
+import app.restaurant.Service.ServiceRestaurantInterface;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
@@ -15,6 +15,10 @@ import java.sql.SQLException;
 public class LancerService {
     public static void start(int... ports) {
         try {
+            int port = 6789;                      // le port de la rmiregistry par défaut
+            if (ports.length > 0) {
+                port = ports[0];
+            }
 
             ServiceRestaurant serviceRestaurant = new ServiceRestaurant(); /* Créer une instance de Compteur */
             ServiceRestaurantInterface rd = (ServiceRestaurantInterface) UnicastRemoteObject.exportObject(serviceRestaurant, 0);
@@ -23,11 +27,6 @@ public class LancerService {
 
             /* Un_port = un entier particulier ou 0 pour auto-assigné */
             try {
-
-                int port = 6789;                      // le port de la rmiregistry par défaut
-                if (ports.length > 0) {
-                    port = ports[0];
-                }
                 Registry reg = LocateRegistry.createRegistry(port); /* Création de l'annuaire */
                 System.out.println(reg);
 
