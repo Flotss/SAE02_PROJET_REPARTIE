@@ -67,17 +67,17 @@ public class ServiceRestaurant implements ServiceRestaurantInterface {
     public String reserverResto(String idRestaurant, String nom, String prenom, String nb, String tel) throws RemoteException {
         try {
             System.out.println("Réservation en cours...");
-            String SQLInsert = "INSERT INTO RESERVATION (IDRESTAURANT, NOM, PRENOM, NBCONVIVES, TELEPHONE) VALUES (?, ?, ?, ?, ?);";
-            PreparedStatement prepStatement = connection.prepareStatement(SQLInsert);
-            prepStatement.setString(1, idRestaurant);
-            prepStatement.setString(2, nom);
-            prepStatement.setString(3, prenom);
-            prepStatement.setString(4, nb);
-            prepStatement.setString(5, tel);
-            prepStatement.executeUpdate();
-
+            PreparedStatement ps = connection.prepareStatement("insert into Reservation (IDRESTAURANT, NOM, PRENOM, NBCONVIVES, TELEPHONE) values (?, ?, ?, ?, ?)");
+            ps.setInt(1, Integer.parseInt(idRestaurant));
+            ps.setString(2, nom);
+            ps.setString(3, prenom);
+            ps.setInt(4, Integer.parseInt(nb));
+            ps.setString(5, tel);
+            ps.executeUpdate();
+            System.out.println("OK");
             return "{ \"status\": \"OK\", \"message\": \"Réservation effectuée\" }";
         } catch (SQLException e) {
+            System.out.println();
             System.out.println("Erreur lors de la réservation : " + e.getMessage());
             return "{ \"status\": \"KO\", \"message\": \"Erreur lors de la réservation\" }";
         }
