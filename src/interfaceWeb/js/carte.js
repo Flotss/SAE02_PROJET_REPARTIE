@@ -2,6 +2,7 @@ import restaurant from "./restaurant.js";
 import uiReservation from "./uiReservation.js";
 import {getBikeAvailability, getStationAvailability, getStationData} from "../../trafficInformations/VelostanNancy.js";
 import {getCirculationIncidents} from "../../trafficInformations/CirculationIncidents.js";
+import {enregisterNouveauRestaurant, generateForm} from "./addRestaurant.js";
 
 console.log('Hi map ! ');
 
@@ -64,6 +65,20 @@ export async function init() {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     }).addTo(map);
 
+    let popup = L.popup();
+
+
+    function onMapClick(e) {
+        console.log("You clicked the map at " + e.latlng.toString());
+        popup.setLatLng(e.latlng)
+            .setContent(generateForm(e))
+            .openOn(map);
+        document.getElementById('formNewRestaurant').addEventListener('submit', enregisterNouveauRestaurant);
+
+    }
+
+    map.on('click', onMapClick);
+
 
     L.control.layers(null, SelecteurAffichage).addTo(map);
 
@@ -107,12 +122,12 @@ function addMarkerIncidentsCirculation(lat, lng, descr, adresse, start, end, cit
     GroupeMarkerIncidents.addLayer(marker);
 }
 
-function afficherRestaurants(){
+function afficherRestaurants() {
     GroupeMarkerResto.clearLayers();
 
     let JsonObject;
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost/api/restaurations", true);
+    xhr.open("GET", "http://localhost:8000/api/restaurations", true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             JsonObject = JSON.parse(xhr.response);
@@ -127,7 +142,7 @@ function afficherRestaurants(){
     xhr.send();
 }
 
-async function afficherStationsVelib(){
+async function afficherStationsVelib() {
     GroupeMarkerVlib.clearLayers();
 
     let stations = await getStationData();
@@ -140,7 +155,7 @@ async function afficherStationsVelib(){
     }
 }
 
-async function afficherIncidents(){
+async function afficherIncidents() {
     GroupeMarkerIncidents.clearLayers();
 
     let incidents = await getCirculationIncidents();
@@ -149,7 +164,7 @@ async function afficherIncidents(){
     }
 }
 
-function afficherEtablissementsSup(){
+function afficherEtablissementsSup() {
     //TODO
     GroupeMarkerEtablissementEnsSup.clearLayers();
 
