@@ -1,138 +1,24 @@
 package ProxyServices;
 
+import ProxyServices.HTTPHandler.ServeurAjoutRestaurant;
+import ProxyServices.HTTPHandler.ServeurProxy;
+import ProxyServices.HTTPHandler.ServeurReservation;
+import ProxyServices.HTTPHandler.ServeurRestaurant;
 import app.LancerService;
 import app.proxy.ServiceProxyBlocageInterface;
 import app.restaurant.Service.ServiceRestaurantInterface;
-import com.sun.net.httpserver.HttpExchange;
-import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.InetSocketAddress;
-import java.nio.charset.StandardCharsets;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.sql.SQLException;
 import java.util.Arrays;
 
-class ServeurRestaurant implements HttpHandler {
 
-    String response;
-
-    Serveur serveur;
-
-    public ServeurRestaurant(Serveur serveur) {
-        this.serveur = serveur;
-    }
-
-    public void handle(HttpExchange exchange) throws IOException {
-        // Ajouter les en-têtes CORS
-        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://localhost:63342");
-        exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST");
-        exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
-
-
-        this.response = this.serveur.getResto();
-
-        exchange.sendResponseHeaders(200, this.response.getBytes().length);
-        OutputStream outputStream = exchange.getResponseBody();
-        outputStream.write(this.response.getBytes());
-        outputStream.close();
-    }
-
-}
-
-class ServeurReservation implements HttpHandler {
-
-    Serveur serveur;
-
-    String response;
-
-    public ServeurReservation(Serveur serveur) {
-        this.serveur = serveur;
-    }
-
-    public void handle(HttpExchange exchange) throws IOException {
-        // Ajouter les en-têtes CORS
-        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://localhost:63342");
-        exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST");
-        exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
-        byte[] allBytes = exchange.getRequestBody().readAllBytes();
-        String content = new String(allBytes, StandardCharsets.UTF_8);
-        //serveur.Reservation(content.split(","));
-        System.out.println(Arrays.toString(content.split(",")));
-        this.response = this.serveur.reservation(content.split(","));
-
-        exchange.sendResponseHeaders(200, this.response.getBytes().length);
-        OutputStream outputStream = exchange.getResponseBody();
-        outputStream.write(this.response.getBytes());
-        outputStream.close();
-    }
-}
-
-class ServeurAjoutRestaurant implements HttpHandler {
-
-    Serveur serveur;
-
-    String response;
-
-    public ServeurAjoutRestaurant(Serveur serveur) {
-        this.serveur = serveur;
-    }
-
-    public void handle(HttpExchange exchange) throws IOException {
-        // Ajouter les en-têtes CORS
-        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://localhost:63342");
-        exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST");
-        exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
-        byte[] allBytes = exchange.getRequestBody().readAllBytes();
-        String content = new String(allBytes, StandardCharsets.UTF_8);
-        //serveur.Reservation(content.split(","));
-        System.out.println(Arrays.toString(content.split(",")));
-        this.response = this.serveur.addRestaurant(content.split(","));
-
-        exchange.sendResponseHeaders(200, this.response.getBytes().length);
-        OutputStream outputStream = exchange.getResponseBody();
-        outputStream.write(this.response.getBytes());
-        outputStream.close();
-    }
-}
-
-
-class ServeurProxy implements HttpHandler {
-
-    Serveur serveur;
-
-    String response;
-
-    public ServeurProxy(Serveur serveur) {
-        this.serveur = serveur;
-    }
-
-    public void handle(HttpExchange exchange) throws IOException {
-        // Ajouter les en-têtes CORS
-        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://localhost:63342");
-        exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST");
-        exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
-
-        // Recherche de la valeur du paramètre "url"
-        String query = exchange.getRequestURI().getQuery();
-        String[] querySplit = query.split("=");
-        String url = querySplit[1];
-
-
-        this.response = this.serveur.makeRequest(url);
-
-        exchange.sendResponseHeaders(200, this.response.getBytes().length);
-        OutputStream outputStream = exchange.getResponseBody();
-        outputStream.write(this.response.getBytes());
-        outputStream.close();
-    }
-}
-
-class Serveur {
+public class Serveur {
 
     ServiceRestaurantInterface sr;
     ServiceProxyBlocageInterface spb;
@@ -193,8 +79,8 @@ class Serveur {
         Serveur serveur = new Serveur("localhost", 6789);
 
         server.createContext("/api/restaurations", new ServeurRestaurant(serveur));
-        server.createContext("/api/reservation", new ProxyServices.ServeurReservation(serveur));
-        server.createContext("/api/addRestaurant", new ProxyServices.ServeurAjoutRestaurant(serveur));
+        server.createContext("/api/reservation", new ServeurReservation(serveur));
+        server.createContext("/api/addRestaurant", new ServeurAjoutRestaurant(serveur));
         server.createContext("/api/proxy", new ServeurProxy(serveur));
         server.start();
     }
