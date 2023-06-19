@@ -2,6 +2,7 @@ import restaurant from "./restaurant.js";
 import uiReservation from "./uiReservation.js";
 import {getBikeAvailability, getStationAvailability, getStationData} from "../../trafficInformations/VelostanNancy.js";
 import {getCirculationIncidents} from "../../trafficInformations/CirculationIncidents.js";
+import {enregisterNouveauRestaurant, generateForm} from "./newRestaurant.js";
 
 console.log('Hi map ! ');
 
@@ -60,11 +61,14 @@ export async function init() {
 
     var popup = L.popup();
 
+
     function onMapClick(e) {
-        popup
-            .setLatLng(e.latlng)
-            .setContent("You clicked the map at " + e.latlng.toString())
+        console.log("You clicked the map at " + e.latlng.toString());
+        popup.setLatLng(e.latlng)
+            .setContent(generateForm(e))
             .openOn(map);
+        document.getElementById('formNewRestaurant').addEventListener('submit', enregisterNouveauRestaurant);
+
     }
 
     map.on('click', onMapClick);

@@ -94,6 +94,30 @@ class ServeurProxy implements HttpHandler {
     }
 }
 
+class ServeurEnregistreur implements HttpHandler {
+
+    Serveur serveur;
+
+    public ServeurEnregistreur(Serveur serveur) {
+        this.serveur = serveur;
+    }
+
+    public void handle(HttpExchange exchange) throws IOException {
+        // Ajouter les en-têtes CORS
+        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://localhost:63342");
+        exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST");
+        exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
+        byte[] allBytes = exchange.getRequestBody().readAllBytes();
+        String content = new String(allBytes, "UTF-8");
+        //serveur.Reservation(content.split(","));
+        System.out.println(Arrays.toString(content.split(",")));
+
+
+
+
+    }
+}
+
 class Serveur{
 
     ServiceRestaurantInterface sr;
@@ -151,6 +175,7 @@ class Serveur{
 
         server.createContext("/api/restaurations", new ProxyServices.ServeurRestauration(serveur));
         server.createContext("/api/reservation", new ProxyServices.ServeurReservation(serveur));
+        server.createContext("/api/enregistreur", new ProxyServices.ServeurEnregistreur(serveur));
         server.createContext("/api/proxy", new ServeurProxy(serveur));
         server.start();
     }
