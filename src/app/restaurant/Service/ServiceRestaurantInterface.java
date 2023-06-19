@@ -1,4 +1,4 @@
-package app.restaurant;
+package app.restaurant.Service;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
