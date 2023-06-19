@@ -1,4 +1,3 @@
-
 class Resto {
     constructor(id, nom, adresse, gps) {
         this.id = id;
@@ -25,6 +24,6 @@ class Resto {
     }
 }
 
-export default{
+export default {
     Resto: Resto,
 }

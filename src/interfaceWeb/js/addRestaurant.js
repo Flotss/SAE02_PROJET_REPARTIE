@@ -1,4 +1,4 @@
-export function generateForm(e){
+export function generateForm(e) {
     return "<form id='formNewRestaurant' method='post'>"
         + "<div class='form-group'>"
         + "<label for='nom'>Nom du restaurant</label>"
@@ -20,7 +20,7 @@ export function generateForm(e){
         + "</form>";
 }
 
-export function enregisterNouveauRestaurant(){
+export function enregisterNouveauRestaurant() {
 
     const nom = document.getElementById('nom').value;
     const adr = document.getElementById('adresse').value;

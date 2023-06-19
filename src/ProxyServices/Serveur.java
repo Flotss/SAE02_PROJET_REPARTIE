@@ -24,8 +24,8 @@ class ServeurRestaurant implements HttpHandler {
     Serveur serveur;
 
     public ServeurRestaurant(Serveur serveur) {
-            this.serveur = serveur;
-        }
+        this.serveur = serveur;
+    }
 
     public void handle(HttpExchange exchange) throws IOException {
         // Ajouter les en-têtes CORS
@@ -132,7 +132,7 @@ class ServeurProxy implements HttpHandler {
     }
 }
 
-class Serveur{
+class Serveur {
 
     ServiceRestaurantInterface sr;
     ServiceProxyBlocageInterface spb;
@@ -146,7 +146,7 @@ class Serveur{
         }
     }
 
-    public String reservation(String[] val){
+    public String reservation(String[] val) {
         try {
             return sr.makeReservation(val[0], val[1], val[2], val[3], val[4]);
         } catch (RemoteException e) {
@@ -154,7 +154,7 @@ class Serveur{
         }
     }
 
-    public String addRestaurant(String[] val){
+    public String addRestaurant(String[] val) {
         try {
             System.out.println(Arrays.toString(val));
             return sr.addRestaurant(val[0], val[1], val[2] + ", " + val[3]);
@@ -163,7 +163,7 @@ class Serveur{
         }
     }
 
-    public String getResto(){
+    public String getResto() {
         try {
             return sr.getCoordonnees();
         } catch (RemoteException | SQLException e) {
@@ -171,7 +171,7 @@ class Serveur{
         }
     }
 
-    public String makeRequest(String url){
+    public String makeRequest(String url) {
         try {
             return spb.makeRequest(url);
         } catch (RemoteException e) {

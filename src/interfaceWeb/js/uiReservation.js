@@ -1,5 +1,3 @@
-import Restaurant from "./restaurant.js";
-
 let resto;
 
 function submitForm() {
@@ -11,7 +9,7 @@ function submitForm() {
     resto.reserver(nom, prenom, nbConvives, telephone);
 }
 
-function uiForm(restaurantt){
+function uiForm(restaurantt) {
 
     resto = restaurantt
 
@@ -50,21 +48,21 @@ function uiForm(restaurantt){
         </form>`;
 
     node.appendChild(div);
-    setTimeout(function() {
+    setTimeout(function () {
         node.classList.add("show");
     }, 10);
 
-    document.addEventListener("click", function(event) {
+    document.addEventListener("click", function (event) {
         const isClickedInsideNode = node.contains(event.target);
         if (!isClickedInsideNode && (event.target.toLocaleString() !== '[object HTMLImageElement]')) {
             node.classList.remove("show");
-            setTimeout(function() {
+            setTimeout(function () {
                 node.remove();
             }, 500); // Supprime la division après 500 millisecondes (0,5 seconde)
         }
     });
 
-    div.getElementsByTagName("button")[0].addEventListener("click",submitForm);
+    div.getElementsByTagName("button")[0].addEventListener("click", submitForm);
 
 }
 

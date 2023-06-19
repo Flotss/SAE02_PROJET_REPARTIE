@@ -1,4 +1,4 @@
-import { init } from "./carte.js";
+import {init} from "./carte.js";
 
 let content = document.getElementById("content");
 
@@ -55,7 +55,6 @@ const image = (id, section, src) => {
 }
 
 
-
 const displayRapport = () => {
     let rapCarte = document.getElementById("rapCarte");
     rapCarte.classList.remove("rapportNav");
@@ -104,7 +103,7 @@ const RapportOrCarte = () => {
 
     if (value === "rapportNav") {
         displayRapport();
-    }else if (value === "carteNav") {
+    } else if (value === "carteNav") {
         displayCarte();
     }
 }

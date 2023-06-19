@@ -11,4 +11,4 @@ public interface ServiceRestaurantInterface extends Remote {
 
     String addRestaurant(String nom, String adresse, String gps) throws RemoteException;
 
-    }
+}

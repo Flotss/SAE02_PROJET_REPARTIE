@@ -14,10 +14,9 @@ import java.util.Scanner;
 
 public class ClientRestaurant {
 
+    final static String service = "ServiceRestaurant";
     static int port = 6789;
     static String host = "localhost";
-
-    final static String service = "ServiceRestaurant";
 
     public static void main(String[] args) throws RemoteException, NotBoundException {
         if (args.length == 2) {

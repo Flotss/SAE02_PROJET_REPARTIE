@@ -23,22 +23,22 @@ public class ServiceProxyBlocage implements ServiceProxyBlocageInterface {
             }
 
             // Si l'URL utilise HTTPS, on ajoute le certificat à la liste des certificats de confiance
-                SSLContext sslContext = SSLContext.getInstance("TLS");
-                sslContext.init(null, new TrustManager[]{new X509TrustManager() {
-                    public void checkClientTrusted(X509Certificate[] chain, String authType) {
-                    }
+            SSLContext sslContext = SSLContext.getInstance("TLS");
+            sslContext.init(null, new TrustManager[]{new X509TrustManager() {
+                public void checkClientTrusted(X509Certificate[] chain, String authType) {
+                }
 
-                    public void checkServerTrusted(X509Certificate[] chain, String authType) {
-                    }
+                public void checkServerTrusted(X509Certificate[] chain, String authType) {
+                }
 
-                    public X509Certificate[] getAcceptedIssuers() {
-                        return new X509Certificate[0];
-                    }
-                }}, new java.security.SecureRandom());
-                HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
+                public X509Certificate[] getAcceptedIssuers() {
+                    return new X509Certificate[0];
+                }
+            }}, new java.security.SecureRandom());
+            HttpsURLConnection.setDefaultSSLSocketFactory(sslContext.getSocketFactory());
 
-                // Ajout du certificat de confiance
-                HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
+            // Ajout du certificat de confiance
+            HttpsURLConnection.setDefaultHostnameVerifier((hostname, session) -> true);
 
 
             // Création de l'objet URL à partir de l'URL spécifiée

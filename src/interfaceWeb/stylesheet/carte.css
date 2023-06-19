@@ -1,4 +1,7 @@
-@font-face {font-family : "Swifted" ; src : url('police/Swifted/Swifted DEMO.otf');}
+@font-face {
+    font-family: "Swifted" ;
+    src: url('police/Swifted/Swifted DEMO.otf');
+}
 
 /* map */
 #map {
@@ -12,15 +15,16 @@
 }
 
 /*header*/
-h1, h2{
+h1, h2 {
     font-family: "Swifted";
     font-size: 70px;
 }
-h2{
+
+h2 {
     font-size: 30px;
 }
 
-.header{
+.header {
     height: 150px;
     display: flex;
     justify-content: center;
@@ -28,14 +32,14 @@ h2{
     margin-bottom: 50px;
 }
 
-body{
+body {
     padding: 10px 10px 10px 30px;
 }
 
 /* navigation */
-nav{
+nav {
     position: absolute;
-    top : 20px;
+    top: 20px;
     left: 20px;
     z-index: 4;
     display: flex;
@@ -44,32 +48,33 @@ nav{
     align-items: center;
     cursor: pointer;
 }
-nav img{
+
+nav img {
     width: 90%;
 }
 
-#rapCarte{
+#rapCarte {
     background-image: linear-gradient(to top, #add19e, #f8d19c);
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50px;
     width: 50px;
-    height : 50px;
+    height: 50px;
     padding: 5px;
     flex-grow: 2;
     position: relative;
 }
 
-.rapportNav::before{
+.rapportNav::before {
     content: "Rapport";
 }
 
-.carteNav::before{
-    content:"Carte";
+.carteNav::before {
+    content: "Carte";
 }
 
-.carteNav::before, .rapportNav::before{
+.carteNav::before, .rapportNav::before {
 
     clip-path: polygon(0% 50%,
     10% 30%,
@@ -109,7 +114,7 @@ nav img{
 
 
 /* contenu map */
-#affichageMap{
+#affichageMap {
     display: grid;
     grid-template-rows: 600px;
     grid-template-columns: 50% 47%;
@@ -118,7 +123,7 @@ nav img{
 
 
 /* formulaire de réservation */
-.formReservation{
+.formReservation {
     grid-column: 2;
     grid-row: 1;
     background-color: #bddab1;
@@ -139,22 +144,23 @@ nav img{
     opacity: 0; /* Définir l'opacité à 0 pour commencer */
     transition: opacity 0.5s ease;
 }
-.formReservation.show{
+
+.formReservation.show {
     opacity: 1;
 }
 
-.formReservation p{
+.formReservation p {
     text-align: left;
 }
 
 
-#informationRestoForm{
+#informationRestoForm {
     grid-column: 1;
     grid-row: 1;
 }
 
 
-#reservationForm{
+#reservationForm {
     grid-row: 2;
     grid-column: 1;
     grid-column-gap: 20px;
@@ -165,20 +171,21 @@ nav img{
     text-align: left;
 }
 
-#reservationForm>h3{
+#reservationForm > h3 {
     grid-column: 1 / 3;
     grid-row: 1;
 }
 
-#reservationForm>div{
-    display:flex;
-    flex-direction:column;
+#reservationForm > div {
+    display: flex;
+    flex-direction: column;
     background-color: #ffffff54;
     padding: 12px 10px 10px 15px;
     border-left: 4px solid #e9bb79;
     border-top-right-radius: 10px;
     border-bottom-right-radius: 10px;
 }
+
 #reservationForm input {
     margin-top: 5px;
     line-height: 30px;
@@ -190,20 +197,22 @@ nav img{
     font-size: 15px;
 }
 
-#reservationForm input:focus{
+#reservationForm input:focus {
     outline: none;
     outline-offset: none;
 }
 
-#formulaireNom{
+#formulaireNom {
     grid-column: 1;
     grid-row: 2;
 }
-#formuairePrenom{
+
+#formuairePrenom {
     grid-column: 2;
     grid-row: 2;
 }
-#formulaireNbConv{
+
+#formulaireNbConv {
     grid-column: 1;
     grid-row: 3;
     display: flex;
@@ -211,11 +220,12 @@ nav img{
 
 }
 
-#formulaireTelephone{
+#formulaireTelephone {
     grid-column: 2;
     grid-row: 3;
 }
-#reservationForm>button{
+
+#reservationForm > button {
     grid-column: 1 / 3;
     grid-row: 4;
     width: 20%;
@@ -225,10 +235,11 @@ nav img{
     border: none;
     border-radius: 10px;
     box-shadow: inset 0px 0px 10px #bddab1;
-    transition: 1s ;
+    transition: 1s;
 }
-#reservationForm>button:hover{
+
+#reservationForm > button:hover {
     box-shadow: inset 0px 0px 10px white;
 
-    transition: 1s ;
+    transition: 1s;
 }
