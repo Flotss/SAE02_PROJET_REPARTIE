@@ -38,6 +38,7 @@ public class ClientRestaurant {
 
         Scanner scanner = new Scanner(System.in);
         System.out.println("Bienvenue dans le client restaurant");
+        System.out.println("Example pour faire une reservation : ");
         System.out.println("0. Quitter");
 
         Class<?> serviceRestaurantClass = serviceRestaurant.getClass();
@@ -62,20 +63,21 @@ public class ClientRestaurant {
         }
 
 
-        int choice = -1;
-        while (choice != 0) {
+        int choice;
+        while (true) {
             System.out.println("Quelle fonction voulez-vous utiliser ?");
             choice = scanner.nextInt();
+
+            while (!methods.containsKey(choice) && choice != 0) {
+                System.out.println("Veuillez entrer un nombre valide");
+                choice = scanner.nextInt();
+            }
 
             // EXIT
             if (choice == 0) {
                 System.out.println("Fin du client restaurant");
+                scanner.close();
                 System.exit(0);
-            }
-
-            while (!methods.containsKey(choice)) {
-                System.out.println("Veuillez entrer un nombre valide");
-                choice = scanner.nextInt();
             }
 
             Method method = methods.get(choice);
@@ -102,6 +104,5 @@ public class ClientRestaurant {
         }
 
 
-        scanner.close();
     }
 }

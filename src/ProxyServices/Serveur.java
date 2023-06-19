@@ -10,19 +10,20 @@ import com.sun.net.httpserver.HttpServer;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.nio.charset.StandardCharsets;
 import java.rmi.NotBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.sql.SQLException;
 import java.util.Arrays;
 
-class ServeurRestauration implements HttpHandler {
+class ServeurRestaurant implements HttpHandler {
 
     String response;
 
     Serveur serveur;
 
-    public ServeurRestauration(Serveur serveur) {
+    public ServeurRestaurant(Serveur serveur) {
             this.serveur = serveur;
         }
 
@@ -59,7 +60,7 @@ class ServeurReservation implements HttpHandler {
         exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST");
         exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
         byte[] allBytes = exchange.getRequestBody().readAllBytes();
-        String content = new String(allBytes, "UTF-8");
+        String content = new String(allBytes, StandardCharsets.UTF_8);
         //serveur.Reservation(content.split(","));
         System.out.println(Arrays.toString(content.split(",")));
         this.response = this.serveur.reservation(content.split(","));
@@ -87,7 +88,7 @@ class ServeurAjoutRestaurant implements HttpHandler {
         exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST");
         exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
         byte[] allBytes = exchange.getRequestBody().readAllBytes();
-        String content = new String(allBytes, "UTF-8");
+        String content = new String(allBytes, StandardCharsets.UTF_8);
         //serveur.Reservation(content.split(","));
         System.out.println(Arrays.toString(content.split(",")));
         this.response = this.serveur.addRestaurant(content.split(","));
@@ -140,16 +141,14 @@ class Serveur{
         try {
             this.sr = (ServiceRestaurantInterface) LocateRegistry.getRegistry(adress, port).lookup("ServiceRestaurant");
             this.spb = (ServiceProxyBlocageInterface) LocateRegistry.getRegistry(adress, port).lookup("ServiceProxyBlocage");
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        } catch (NotBoundException e) {
+        } catch (RemoteException | NotBoundException e) {
             throw new RuntimeException(e);
         }
     }
 
     public String reservation(String[] val){
         try {
-            return sr.reserverResto(val[0], val[1], val[2], val[3], val[4]);
+            return sr.makeReservation(val[0], val[1], val[2], val[3], val[4]);
         } catch (RemoteException e) {
             throw new RuntimeException(e);
         }
@@ -167,9 +166,7 @@ class Serveur{
     public String getResto(){
         try {
             return sr.getCoordonnees();
-        } catch (RemoteException e) {
-            throw new RuntimeException(e);
-        } catch (SQLException e) {
+        } catch (RemoteException | SQLException e) {
             throw new RuntimeException(e);
         }
     }
@@ -186,7 +183,7 @@ class Serveur{
         LancerService.start();
 
 
-        HttpServer server = null;
+        HttpServer server;
         try {
             server = HttpServer.create(new InetSocketAddress(8000), 0);
         } catch (IOException e) {
@@ -195,7 +192,7 @@ class Serveur{
 
         Serveur serveur = new Serveur("localhost", 6789);
 
-        server.createContext("/api/restaurations", new ProxyServices.ServeurRestauration(serveur));
+        server.createContext("/api/restaurations", new ServeurRestaurant(serveur));
         server.createContext("/api/reservation", new ProxyServices.ServeurReservation(serveur));
         server.createContext("/api/addRestaurant", new ProxyServices.ServeurAjoutRestaurant(serveur));
         server.createContext("/api/proxy", new ServeurProxy(serveur));
