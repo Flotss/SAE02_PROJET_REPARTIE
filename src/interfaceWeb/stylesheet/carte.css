@@ -238,7 +238,7 @@ nav img {
     box-shadow: inset 0px 0px 5px #bddab1;
     transition: 1s;
     position: relative;
-
+    overflow: hidden;
 }
 #reservationForm > button::before{
     content: "";
@@ -259,6 +259,7 @@ nav img {
     position: relative;
     z-index: 3;
     margin: 0;
+    text-align: center;
 }
 
 
