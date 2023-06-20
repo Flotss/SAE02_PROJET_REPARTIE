@@ -65,7 +65,9 @@ public class Serveur {
     }
 
     public static void main(String[] args) {
-        if (args.length != 4) {
+        if (args.length == 0) {
+            args = new String[]{"localhost", "10002", "localhost", "10001"};
+        }else if (args.length < 4) {
             System.out.println("Usage: java Serveur <adresseRestaurant> <portRestaurant> <adresseProxy> <portProxy>");
             System.exit(1);
         }
