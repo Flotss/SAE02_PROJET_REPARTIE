@@ -51,6 +51,7 @@ async function getListTemp(data){
                 if(listMeteo.length<8){
                     console.log(elem);
                     let objetElem = {};
+                    objetElem.date = elem;
                     //temperature
                     objetElem.temperature = meteo[elem].temperature["2m"]-272.15;
                     console.log(objetElem.temperature);
