@@ -11,7 +11,7 @@ public class LancerService {
     public static void main(String[] args) throws SQLException, RemoteException {
         int port = (args.length < 1) ? 10002 : Integer.parseInt(args[0]);
 
-        if (port > 1) {
+        if (args.length > 1) {
             System.out.println("Usage: java LancerService <port>");
             System.exit(1);
         }
