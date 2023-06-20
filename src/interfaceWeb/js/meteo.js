@@ -50,17 +50,22 @@ async function getListTemp(data){
             if(!comparaison){
                 if(listMeteo.length<8){
                     console.log(elem);
-                    listMeteo.push(elem);
+                    let objetElem = {};
+                    //temperature
+                    objetElem.temperature = meteo[elem].temperature["2m"]-272.15;
+                    console.log(objetElem.temperature);
+                    // pluie
+                    objetElem.pluie = meteo[elem].pluie;
+                    // vent moyen
+                    objetElem.vent = meteo[elem].vent_moyen;
+                    // nébulosité totale
+                    objetElem.nebulosite = meteo[elem].nebulosite.totale;
+                    listMeteo.push(objetElem);
                 }
 
             }
         }
-
-
     }
-
-
-
 }
 
 
