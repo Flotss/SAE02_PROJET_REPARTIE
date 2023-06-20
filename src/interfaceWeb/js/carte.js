@@ -3,6 +3,8 @@ import uiReservation from "./uiReservation.js";
 import {getBikeAvailability, getStationAvailability, getStationData} from "../../trafficInformations/VelostanNancy.js";
 import {getCirculationIncidents} from "../../trafficInformations/CirculationIncidents.js";
 import {enregisterNouveauRestaurant, generateForm} from "./addRestaurant.js";
+import {displayMeteo} from "./uiMeteo.js";
+import { host, port } from "./config.js";
 
 console.log('Hi map ! ');
 
@@ -68,7 +70,6 @@ export async function init() {
 
     let popup = L.popup();
 
-
     function onMapClick(e) {
         console.log("You clicked the map at " + e.latlng.toString());
         popup.setLatLng(e.latlng)
@@ -82,6 +83,8 @@ export async function init() {
 
 
     L.control.layers(null, SelecteurAffichage).addTo(map);
+
+    await displayMeteo();
 
     afficherRestaurants();
 
@@ -131,7 +134,7 @@ function afficherRestaurants() {
 
     let JsonObject;
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost:8000/api/restaurations", true);
+    xhr.open("GET", host + ":" + port + "/api/restaurations", true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             JsonObject = JSON.parse(xhr.response);
@@ -163,6 +166,7 @@ async function afficherIncidents() {
     GroupeMarkerIncidents.clearLayers();
 
     let incidents = await getCirculationIncidents();
+    console.log(incidents)
     for (const incident of incidents) {
         addMarkerIncidentsCirculation(incident.lat, incident.lon, incident.description, incident.location, incident.start, incident.end, incident.city, incident.postcode);
     }
@@ -173,7 +177,7 @@ function afficherEtablissementsSup() {
 
     let JsonObject;
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://localhost:8000/api/proxy?url=https://www.data.gouv.fr/fr/datasets/r/5fb6d2e3-609c-481d-9104-350e9ca134fa", true);
+    xhr.open("GET", host+":"+port+"/api/proxy?url=https://www.data.gouv.fr/fr/datasets/r/5fb6d2e3-609c-481d-9104-350e9ca134fa", true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             JsonObject = JSON.parse(xhr.response);

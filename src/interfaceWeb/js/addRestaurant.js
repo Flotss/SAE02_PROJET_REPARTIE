@@ -1,3 +1,5 @@
+import { port, host} from "./config.js";
+
 export function generateForm(e) {
     return "<form id='formNewRestaurant' method='post' style=''>"
         + "<div class='form-group'>"
@@ -28,7 +30,7 @@ export function enregisterNouveauRestaurant() {
     const long = document.getElementById('lon').value;
 
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", "http://localhost:8000/api/addRestaurant", true);
+    xhr.open("POST", host + ":" + port + "/api/restaurations", true);
     xhr.send(nom + "," + adr + "," + lat + "," + long);
 }
 

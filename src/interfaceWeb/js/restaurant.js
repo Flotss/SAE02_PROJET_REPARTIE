@@ -1,3 +1,5 @@
+import {host, port} from "./config.js";
+
 class Resto {
     constructor(id, nom, adresse, gps) {
         this.id = id;
@@ -8,7 +10,7 @@ class Resto {
 
     reserver(nom, prenom, nbConviv, telephone) {
         const xhr2 = new XMLHttpRequest();
-        xhr2.open("POST", "http://localhost:8000/api/reservation", true);
+        xhr2.open("POST", host + ":" + port + "/api/reservation", true);
         xhr2.send(this.id + "," + nom + "," + prenom + "," + nbConviv + "," + telephone);
         xhr2.onreadystatechange = () => {
             if (xhr2.readyState === 4 && xhr2.status === 200) {
