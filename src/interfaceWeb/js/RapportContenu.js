@@ -17,6 +17,24 @@ let fait = "" +
     "via l'api infoclimat."
 ;
 
+let explicationVelib = "" +
+    "Les markers rouges correspondent à des stations Vélib. Lorsqu'on clique dessus, on a dans une fenêtre pop-up les " +
+    "informations relatives à cette station (comme le nombre de vélos disponibles, le nombre de place disponibles). " +
+    "Ces données sont récupérées à l'aide d'une API provenant du gouvernement. <br>" +
+    "On a pour cela plusieurs fonctions : <br>" +
+    "La première fonction permet de récupérer les données de toutes les stations Vélib de Nancy. <br>" +
+    "Une autre permet le formatage des données récupérées pour l'affichage sur la carte. <br>";
+
+let explicationMeteo = "" +
+    "Sous la carte se trouve la météo des huit prochaines heures à Nancy. Ces données sont récupérées " +
+    "via l'api infoclimat. <br>" +
+    "On a pour cela plusieurs fonctions : <br>" +
+    "La première fonction permet de récupérer les données de la météo de Nancy (en selectionnant les données utiles) et de les formatter. <br>" +
+    "Une autre va, à partir des données de la météo, sélectionner l'icone correspondant (Nuage, soleil, pluie, vent)." +
+    "Bien que la selection de l'icone se fasse en fonction de ces données, il peut arriver que l'icone ne correponde pas parfaitement au temps dehors (Comme un icone de soleil en pleine nuit)<br>";
+
+
+
 
 export default {
     fait : fait,
