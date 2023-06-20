@@ -58,7 +58,7 @@ export async function init() {
     const map = L.map('map', {
         center: [nancy.lat, nancy.lng],
         zoom: zoomLevel,
-        layers: [GroupeMarkerResto]
+        layers: [GroupeMarkerResto, GroupeMarkerVlib, GroupeMarkerEtablissementEnsSup, GroupeMarkerIncidents]
     });
 
     L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
