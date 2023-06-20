@@ -49,6 +49,7 @@ async function getListTemp(data){
 
             if(!comparaison){
                 if(listMeteo.length<8){
+                    console.log(elem);
                     listMeteo.push(elem);
                 }
 
@@ -57,7 +58,7 @@ async function getListTemp(data){
 
 
     }
-    console.log('meteo.temp.2m : ' + meteo['2023-06-26 20:00:00']);
+
 
 
 }
