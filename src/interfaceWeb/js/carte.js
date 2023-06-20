@@ -3,6 +3,7 @@ import uiReservation from "./uiReservation.js";
 import {getBikeAvailability, getStationAvailability, getStationData} from "../../trafficInformations/VelostanNancy.js";
 import {getCirculationIncidents} from "../../trafficInformations/CirculationIncidents.js";
 import {enregisterNouveauRestaurant, generateForm} from "./addRestaurant.js";
+import {displayMeteo} from "./uiMeteo.js";
 
 console.log('Hi map ! ');
 
@@ -68,7 +69,6 @@ export async function init() {
 
     let popup = L.popup();
 
-
     function onMapClick(e) {
         console.log("You clicked the map at " + e.latlng.toString());
         popup.setLatLng(e.latlng)
@@ -82,6 +82,8 @@ export async function init() {
 
 
     L.control.layers(null, SelecteurAffichage).addTo(map);
+
+    await displayMeteo();
 
     afficherRestaurants();
 
@@ -163,6 +165,7 @@ async function afficherIncidents() {
     GroupeMarkerIncidents.clearLayers();
 
     let incidents = await getCirculationIncidents();
+    console.log(incidents)
     for (const incident of incidents) {
         addMarkerIncidentsCirculation(incident.lat, incident.lon, incident.description, incident.location, incident.start, incident.end, incident.city, incident.postcode);
     }
