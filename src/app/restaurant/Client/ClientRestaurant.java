@@ -25,7 +25,7 @@ public class ClientRestaurant {
         } else if (args.length == 1) {
             host = args[0];
         } else if (args.length == 0) {
-            System.out.println("Using default values: host = localhost, port = 6789");
+            System.out.println("Using default values: host = localhost, port = 10002");
         } else {
             System.out.println("Usage: java -jar ClientRestaurant.jar [host] [port]");
             System.exit(1);
