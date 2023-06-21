@@ -38,6 +38,19 @@ let explicationMeteo = "" +
     "Une autre va, à partir des données de la météo, sélectionner l'icone correspondant (Nuage, soleil, pluie, vent)." +
     "Bien que la selection de l'icone se fasse en fonction de ces données, il peut arriver que l'icone ne correponde pas parfaitement au temps dehors (Comme un icone de soleil en pleine nuit)<br>";
 
+let explicationIncidents = "" +
+    "Les markers oranges correspondent à des informations de circulation. <br>" +
+    "Ces données sont récupérées à l'aide d'une API de la Région Est<br>" +
+    "On a pour cela plusieurs fonctions : <br>" +
+    "La première fonction permet de récupérer les données de tous les incidents de circulation de Nancy. <br>" +
+    "Une autre permet le formatage des données récupérées pour l'affichage sur la carte. <br>" +
+    "On retrouve les informations suivantes : <br>" +
+    " - Le type d'incident <br>" +
+    " - La date de l'incident <br>" +
+    " - La localisation de l'incident <br>" +
+    " - La description de l'incident <br>";
+
+
 let explicationProxyBlocage = "" +
     "Le service proxy (blocage) est un service qui permet de faire des requêtes à des serveurs externes. <br>" +
     "Ce service permet de pouvoir contourner le problème de CORS (Cross-Origin Resource Sharing) qui empêche les requêtes " +
@@ -55,14 +68,14 @@ let explicationProxyServeur = "" +
     "Les API sont gérer par le serveur HTTPS et les services RMI pour les résultats. <br>" +
     " - Le service RMI des restaurants :" +
     "<ul>" +
-        "<li> Permet de récupérer les restaurants de la base de données. </li>" +
-        "<li> Permet d'ajouter un restaurant. </li>" +
-        "<li> Permet de faire une réservation. </li>" +
+    "<li> Permet de récupérer les restaurants de la base de données. </li>" +
+    "<li> Permet d'ajouter un restaurant. </li>" +
+    "<li> Permet de faire une réservation. </li>" +
     "</ul>" +
     " - Le service RMI de proxy :" +
     "<ul>" +
-        "<li> Permet de faire une requête sur un serveur externe sans blocage CORS. </li>" +
-        "<li> Permet de récupérer les établissements d'enseignement supérieur. </li>" +
+    "<li> Permet de faire une requête sur un serveur externe sans blocage CORS. </li>" +
+    "<li> Permet de récupérer les établissements d'enseignement supérieur. </li>" +
     "</ul>" +
     "Ces services sont utils pour récupérer certaines données qui ne sont pas accessible depuis le client. <br>" +
     "Comme la base de données, ou les établissements d'enseignement supérieur. <br>";
@@ -84,10 +97,11 @@ let explicationPourlancer = "" +
 
 export default {
     explicationSchema: explicationSchema,
-    fait : fait,
-    explicationVelib : explicationVelib,
-    explicationMeteo : explicationMeteo,
-    explicationProxyBlocage : explicationProxyBlocage,
-    explicationProxyServeur : explicationProxyServeur,
-    explicationPourlancer : explicationPourlancer
+    fait: fait,
+    explicationVelib: explicationVelib,
+    explicationMeteo: explicationMeteo,
+    explicationIncidents: explicationIncidents,
+    explicationProxyBlocage: explicationProxyBlocage,
+    explicationProxyServeur: explicationProxyServeur,
+    explicationPourlancer: explicationPourlancer
 }

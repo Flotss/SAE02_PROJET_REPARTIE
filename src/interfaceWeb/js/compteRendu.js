@@ -70,35 +70,31 @@ const displayRapport = () => {
     let containerD = container("container");
     let section1 = section("section1", containerD);
     let section2 = section("section2", containerD);
-    let section3 = section("section3", containerD);
 
     titleParagraph("title", section1, "Schéma de l'architecture");
     image("img-architecture", section1, "stylesheet/image/schemaArchitecture.png");
+    paragraph("p1", section1, rapportContenu.explicationSchema);
 
     titleParagraph("title", section1, "Ce qui a été fait");
     paragraph("p1", section1, rapportContenu.fait);
 
-    titleParagraph("title", section1, "Méteo");
-    paragraph("p2", section1, rapportContenu.explicationMeteo);
-
-    titleParagraph("title", section1, "Implémentation des Vélib");
-    paragraph("p3", section1, rapportContenu.explicationVelib);
-
-    titleParagraph("title", section1, "Implémentation de la météo");
-    paragraph("p4", section1, rapportContenu.explicationMeteo);
-
+    titleParagraph("title", section1, "Météo");
+    paragraph("p1", section1, rapportContenu.explicationMeteo);
 
     titleParagraph("title", section1, "Vélib");
-    paragraph("p2", section1, rapportContenu.explicationVelib);
+    paragraph("p1", section1, rapportContenu.explicationVelib);
+
+    titleParagraph("title", section1, "Incidents de circulation");
+    paragraph("p1", section1, rapportContenu.explicationIncidents);
 
     titleParagraph("title", section2, "Serveur HTTPS");
-    paragraph("p3", section2, rapportContenu.explicationProxyServeur);
+    paragraph("p1", section2, rapportContenu.explicationProxyServeur);
 
     titleParagraph("title", section2, "Service proxy bloquant");
-    paragraph("p4", section2, rapportContenu.explicationProxyBlocage);
+    paragraph("p1", section2, rapportContenu.explicationProxyBlocage);
 
-    titleParagraph("title", section2, "Comment lancez le projet");
-    paragraph("p5", section2, rapportContenu.explicationPourlancer);
+    titleParagraph("title", section2, "Comment lancer le projet");
+    paragraph("p1", section2, rapportContenu.explicationPourlancer);
 }
 
 const displayCarte = () => {
