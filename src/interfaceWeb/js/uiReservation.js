@@ -5,6 +5,7 @@ let markers = [];
 let markerCourant = null;
 
 function submitForm() {
+    console.log(document.getElementById('nom'))
     const nom = document.getElementById('nom').value;
     const prenom = document.getElementById('prenom').value;
     const nbConvives = document.getElementById('nbConvives').value;
@@ -14,12 +15,17 @@ function submitForm() {
 }
 
 function uiForm(restaurantt, marker){
+    let ancienFormulaire = document.getElementById("formulaireReservation");
+    if (ancienFormulaire){
+        ancienFormulaire.remove();
+    }
     markerCourant = marker;
     resto = restaurantt;
     let node = document.createElement("div");
     document.querySelector("#affichageMap").appendChild(node);
     //node.setAttribute("id", "formReservation");
     node.classList.add("formReservation");
+    node.id = "formulaireReservation";
 
     let html = `
         <div id="informationRestoForm">
@@ -40,7 +46,7 @@ function uiForm(restaurantt, marker){
             </div>
             <div id="formulaireNbConv">
                  <label for="nbConvives">Nombre de convives</label>
-                 <input type="number" id="nbConvives" required><br>
+                 <input type="number" id="nbConvives" required min="1"><br>
             </div>
             <div id="formulaireTelephone">
                  <label for="telephone">Téléphone</label>

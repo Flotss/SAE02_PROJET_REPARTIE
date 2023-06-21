@@ -30,7 +30,7 @@ export function enregisterNouveauRestaurant() {
     const long = document.getElementById('lon').value;
 
     const xhr = new XMLHttpRequest();
-    xhr.open("POST", host + ":" + port + "/api/restaurations", true);
+    xhr.open("POST", host + ":" + port + "/api/addRestaurant", true);
     xhr.send(nom + "," + adr + "," + lat + "," + long);
 }
 
