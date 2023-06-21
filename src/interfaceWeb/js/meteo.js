@@ -24,7 +24,6 @@ export async function getDataTemp() {
     let dataJson = await data.json();
     let listmeteo = await getListTemp(dataJson);
     await getIcon(listmeteo);
-    console.log(listmeteo)
     return listmeteo;
 }
 
