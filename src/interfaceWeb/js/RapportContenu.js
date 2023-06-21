@@ -1,3 +1,8 @@
+let explicationSchema = "" +
+    "L'élément de gauche est la page sur laquelle tous l'affichage est fait. On a également toute une partie codée en Javascript chargée de controller les éléments ajoutés sur la carte (les markers, les fenêtres pop-up, etc...). <br>" +
+    "Afin de communiquer avec la base de données, nous avons créé un service RMI. Ce service est chargé de récupérer les données de la base de données et de les renvoyer à l'interface. <br>" +
+    "Pour finir, nous avons un proxy qui s'occupe de récupérer les données des établissements d'enseignement supérieur et toutes les autres données bloquées<br>";
+
 let fait = "" +
     "Dans cette SAE nous avons créé une base de données. Cette base a deux tables : l'une répertoriant les restaurants " +
     "de nancy, l'autre enregistrant des réservations pour chaque restaurant. " +
@@ -19,7 +24,7 @@ let fait = "" +
 
 let explicationVelib = "" +
     "Les markers rouges correspondent à des stations Vélib. Lorsqu'on clique dessus, on a dans une fenêtre pop-up les " +
-    "informations relatives à cette station (comme le nombre de vélos disponibles, le nombre de place disponibles). " +
+    "informations relatives à cette station (comme le nombre de vélos disponibles, le nombre de places disponibles). " +
     "Ces données sont récupérées à l'aide d'une API provenant du gouvernement. <br>" +
     "On a pour cela plusieurs fonctions : <br>" +
     "La première fonction permet de récupérer les données de toutes les stations Vélib de Nancy. <br>" +
@@ -66,6 +71,7 @@ let explicationProxyServeur = "" +
 
 
 export default {
+    explicationSchema: explicationSchema,
     fait : fait,
     explicationVelib : explicationVelib,
     explicationMeteo : explicationMeteo,

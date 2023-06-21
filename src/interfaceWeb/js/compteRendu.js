@@ -80,6 +80,13 @@ const displayRapport = () => {
     titleParagraph("title", section1, "Méteo");
     paragraph("p2", section1, rapportContenu.explicationMeteo);
 
+    titleParagraph("title", section1, "Implémentation des Vélib");
+    paragraph("p3", section1, rapportContenu.explicationVelib);
+
+    titleParagraph("title", section1, "Implémentation de la météo");
+    paragraph("p4", section1, rapportContenu.explicationMeteo);
+
+
     titleParagraph("title", section1, "Vélib");
     paragraph("p2", section1, rapportContenu.explicationVelib);
 

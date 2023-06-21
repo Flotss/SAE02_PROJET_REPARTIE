@@ -16,7 +16,7 @@ public class ServeurReservation extends Handler {
 
     public void handle(HttpExchange exchange) throws IOException {
         // Ajouter les en-têtes CORS
-        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "http://localhost:63342");
+        exchange.getResponseHeaders().add("Access-Control-Allow-Origin", "https://webetu.iutnc.univ-lorraine.fr");
         exchange.getResponseHeaders().add("Access-Control-Allow-Methods", "GET, POST");
         exchange.getResponseHeaders().add("Access-Control-Allow-Headers", "Content-Type");
         byte[] allBytes = exchange.getRequestBody().readAllBytes();

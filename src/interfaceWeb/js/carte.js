@@ -175,14 +175,16 @@ function afficherEtablissementsSup() {
 
 
     let JsonObject;
-    const xhr = new XMLHttpRequest();
-    xhr.open("GET", host+":"+port+"/api/proxy?url=https://www.data.gouv.fr/fr/datasets/r/5fb6d2e3-609c-481d-9104-350e9ca134fa", true);
+    const xhr = new XMLHttpRequest();//www.data.gouv.fr/fr/datasets/r/5fb6d2e3-609c-481d-9104-350e9ca134fa
+    xhr.open("GET", host + ":" + port + "/api/proxy?url=https://data.enseignementsup-recherche.gouv.fr/api/records/1.0/search/?dataset=fr-esr-implantations_etablissements_d_enseignement_superieur_publics&q=&refine.uucr_nom=Nancy", true);
     xhr.onreadystatechange = function () {
         if (xhr.readyState === 4 && xhr.status === 200) {
             JsonObject = JSON.parse(xhr.response);
-            for (let i = 0; i < JsonObject.response.length; i++) {
-                if ("coordonnees" in JsonObject.response[i].fields) {
-                    addMarkerEtablissementEnsSup(JsonObject.response[i].fields.coordonnees[0], JsonObject.response[i].fields.coordonnees[1], JsonObject.response[i].fields.uo_lib, JsonObject.response[i].fields.adresse_uai);
+            console.log(JsonObject);
+            for (let i = 0; i < JsonObject.response.records.length; i++) {
+                console.log(JsonObject.response.records[i]);
+                if ("coordonnees" in JsonObject.response.records[i].fields) {
+                    addMarkerEtablissementEnsSup(JsonObject.response.records[i].fields.coordonnees[0], JsonObject.response.records[i].fields.coordonnees[1], JsonObject.response.records[i].fields.uo_lib, JsonObject.response.records[i].fields.adresse_uai);
                 }
             }
         } else {
@@ -191,11 +193,11 @@ function afficherEtablissementsSup() {
         }
     };
     xhr.send();
-
 }
 
 
-await init();
+
+    await init();
 
 
 
