@@ -1,7 +1,8 @@
 let explicationSchema = "" +
-    "L'élément de gauche est la page sur laquelle tous l'affichage est fait. On a également toute une partie codée en Javascript chargée de controller les éléments ajoutés sur la carte (les markers, les fenêtres pop-up, etc...). <br>" +
-    "Afin de communiquer avec la base de données, nous avons créé un service RMI. Ce service est chargé de récupérer les données de la base de données et de les renvoyer à l'interface. <br>" +
-    "Pour finir, nous avons un proxy qui s'occupe de récupérer les données des établissements d'enseignement supérieur et toutes les autres données bloquées<br>";
+    "Notre site web est composé de deux parties : une partie front-end et une partie back-end. " +
+    "La partie de gauche est en Javascript (Page web et appel vers les api des vélibs et des incidents de circulation). " +
+    "La partie de droite est en Java (Base de données, appel vers l'api des établissements d'enseignement supérieur, gestion des réservations et ajout d'un nouveau restaurant). " +
+    "<br>Il y a un serveur RMI dédié aux restaurants et aux réservations, et un autre servant de Proxy qui va aller chercher les données bloquées. ";
 
 let fait = "" +
     "Dans cette SAE nous avons créé une base de données. Cette base a deux tables : l'une répertoriant les restaurants " +
