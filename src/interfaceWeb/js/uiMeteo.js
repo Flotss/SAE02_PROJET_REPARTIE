@@ -14,11 +14,10 @@ function uiMeteo(listeMeteo){
 
     const toStringMap = element => `
 <div id="${element.date}">
-        <p>${element.date}</p>
-        <div class="flexRow">
+        <p id="elemJour">${element.jour}</p>
+        <p id="elemHeure">${element.heure}</p>
             <img src="${element.icon}"/>
             <div id="temperature">${element.temperature}</div>
-        </div>
 </div>
     `;
     let tabString = listeMeteo.map(toStringMap);

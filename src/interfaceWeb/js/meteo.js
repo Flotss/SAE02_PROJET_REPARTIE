@@ -40,6 +40,10 @@ async function getListTemp(data) {
                     let objetElem = {};
                     //date
                     objetElem.date = elem;
+                    objetElem.jour = elem.split( " ")[0];
+                    objetElem.heure = elem.split( " ")[1];
+                    objetElem.heure =objetElem.heure.substring(0, objetElem.heure.length-3);
+                    console.log(objetElem.heure);
                     //temperature
                     objetElem.temperature = Math.floor(data[elem].temperature["2m"] - 272.15) + "°C";
                     // pluie
