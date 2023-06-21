@@ -70,6 +70,7 @@ const displayRapport = () => {
     let containerD = container("container");
     let section1 = section("section1", containerD);
     let section2 = section("section2", containerD);
+    let section3 = section("section3", containerD);
 
     titleParagraph("title", section1, "Schéma de l'architecture");
     image("img-architecture", section1, "stylesheet/image/schemaArchitecture.png");
@@ -95,6 +96,9 @@ const displayRapport = () => {
 
     titleParagraph("title", section2, "Service proxy bloquant");
     paragraph("p4", section2, rapportContenu.explicationProxyBlocage);
+
+    titleParagraph("title", section2, "Comment lancez le projet");
+    paragraph("p5", section2, rapportContenu.explicationPourlancer);
 }
 
 const displayCarte = () => {

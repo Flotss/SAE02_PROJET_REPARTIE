@@ -67,7 +67,19 @@ let explicationProxyServeur = "" +
     "Ces services sont utils pour récupérer certaines données qui ne sont pas accessible depuis le client. <br>" +
     "Comme la base de données, ou les établissements d'enseignement supérieur. <br>";
 
-
+let explicationPourlancer = "" +
+    "Pour lancer le service RMI Restaurant : <br>" +
+    " - Se placer dans le dossier 'Restaurant' <br>" +
+    " - Lancer la commande 'java -jar Proxy.jar <port>' <br>" +
+    "<br>" +
+    "Pour lancer le service RMI ProxyBlocage  : <br>" +
+    " - Se placer dans le dossier 'ProxyBlocage' <br>" +
+    " - Lancer la commande 'java -jar Proxy.jar <port>' <br>" +
+    "<br>" +
+    "Pour lancer le Service Central qui gère les autres services : <br>" +
+    " - Se placer dans le dossier 'Serveur' <br>" +
+    " - Lancer la commande 'java -jar Serveur.jar <hostRestaurant> <portRestaurant> <hostProxy> <portProxy>' <br>" +
+    "<br>";
 
 
 export default {
@@ -76,5 +88,6 @@ export default {
     explicationVelib : explicationVelib,
     explicationMeteo : explicationMeteo,
     explicationProxyBlocage : explicationProxyBlocage,
-    explicationProxyServeur : explicationProxyServeur
+    explicationProxyServeur : explicationProxyServeur,
+    explicationPourlancer : explicationPourlancer
 }
