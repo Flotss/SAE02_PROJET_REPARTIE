@@ -71,13 +71,13 @@ const displayRapport = () => {
     let section1 = section("section1", containerD);
     let section2 = section("section2", containerD);
 
-    titleParagraph("title1-1", section1, "Schéma de l'architecture");
+    titleParagraph("title", section1, "Schéma de l'architecture");
     image("img-architecture", section1, "stylesheet/image/schemaArchitecture.png");
 
-    titleParagraph("title1-2", section1, "Ce qui a été fait");
+    titleParagraph("title", section1, "Ce qui a été fait");
     paragraph("p2", section1, rapportContenu.fait);
 
-    titleParagraph("P", section1, "Lorem ipsum dolor sit amet con");
+    titleParagraph("title", section1, "Lorem ipsum dolor sit amet con");
 }
 
 const displayCarte = () => {
