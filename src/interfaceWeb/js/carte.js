@@ -84,13 +84,14 @@ export async function init() {
 
     L.control.layers(null, SelecteurAffichage).addTo(map);
 
-    await displayMeteo();
 
     afficherRestaurants();
 
-    await afficherStationsVelib();
+    afficherStationsVelib();
 
-    await afficherIncidents()
+    afficherIncidents()
+
+    displayMeteo();
 
     afficherEtablissementsSup()
 }
