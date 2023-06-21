@@ -33,9 +33,42 @@ let explicationMeteo = "" +
     "Une autre va, à partir des données de la météo, sélectionner l'icone correspondant (Nuage, soleil, pluie, vent)." +
     "Bien que la selection de l'icone se fasse en fonction de ces données, il peut arriver que l'icone ne correponde pas parfaitement au temps dehors (Comme un icone de soleil en pleine nuit)<br>";
 
+let explicationProxyBlocage = "" +
+    "Le service proxy (blocage) est un service qui permet de faire des requêtes à des serveurs externes. <br>" +
+    "Ce service permet de pouvoir contourner le problème de CORS (Cross-Origin Resource Sharing) qui empêche les requêtes " +
+    "depuis un serveur vers un autre serveur. <br>" +
+    "Le service de proxy est donc le moyen de contourner ce problème en faisant une requête directement sur le serveur qui a le protocole " +
+    "CORS activé. <br>" +
+    "Donc pour utiliser le proxy, il faut faire une requête sur le serveur mis en place, de façon assez simple : <br>" +
+    "https://[HOST]/api/proxy?url=URL_DE_LA_REQUETE <br>" +
+    "Le service proxy va donc faire la requête sur l'URL_DE_LA_REQUETE et renvoyer le résultat de la requête. <br>" +
+    "Le service proxy est donc utilisé pour récupérer les établissements d'enseignement supérieur. <br>" +
+    "Le retour de la requete est un fichier de format JSON. Qui est ensuite traité pour afficher les markers sur la carte. <br>";
+
+let explicationProxyServeur = "" +
+    "Le serveur HTTPS que l'on a mis en place est un serveur qui permet l'utilisation d'API que l'on a mis en place. <br>" +
+    "Les API sont gérer par le serveur HTTPS et les services RMI pour les résultats. <br>" +
+    " - Le service RMI des restaurants :" +
+    "<ul>" +
+        "<li> Permet de récupérer les restaurants de la base de données. </li>" +
+        "<li> Permet d'ajouter un restaurant. </li>" +
+        "<li> Permet de faire une réservation. </li>" +
+    "</ul>" +
+    " - Le service RMI de proxy :" +
+    "<ul>" +
+        "<li> Permet de faire une requête sur un serveur externe sans blocage CORS. </li>" +
+        "<li> Permet de récupérer les établissements d'enseignement supérieur. </li>" +
+    "</ul>" +
+    "Ces services sont utils pour récupérer certaines données qui ne sont pas accessible depuis le client. <br>" +
+    "Comme la base de données, ou les établissements d'enseignement supérieur. <br>";
+
 
 
 
 export default {
     fait : fait,
+    explicationVelib : explicationVelib,
+    explicationMeteo : explicationMeteo,
+    explicationProxyBlocage : explicationProxyBlocage,
+    explicationProxyServeur : explicationProxyServeur
 }

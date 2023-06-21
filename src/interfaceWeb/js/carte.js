@@ -84,13 +84,14 @@ export async function init() {
 
     L.control.layers(null, SelecteurAffichage).addTo(map);
 
-    await displayMeteo();
 
     afficherRestaurants();
 
-    await afficherStationsVelib();
+    afficherStationsVelib();
 
-    await afficherIncidents()
+    afficherIncidents()
+
+    displayMeteo();
 
     afficherEtablissementsSup()
 }
@@ -105,7 +106,6 @@ function addMarkerResto(gps, id, nom, adresse) {
     marker.on("click", () => {
         uiReservation.markers.push(marker);
         let restoCourant = new restaurant.Resto(id, nom, adresse, gps);
-        console.log('resto courant : ' + restoCourant);
         uiReservation.uiForm(restoCourant, marker);
     });
 
@@ -166,7 +166,6 @@ async function afficherIncidents() {
     GroupeMarkerIncidents.clearLayers();
 
     let incidents = await getCirculationIncidents();
-    console.log(incidents)
     for (const incident of incidents) {
         addMarkerIncidentsCirculation(incident.lat, incident.lon, incident.description, incident.location, incident.start, incident.end, incident.city, incident.postcode);
     }

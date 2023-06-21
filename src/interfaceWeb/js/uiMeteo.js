@@ -11,7 +11,6 @@ function uiMeteo(listeMeteo){
     document.querySelector("#content").appendChild(node);
     node.setAttribute("id", "meteo");
 
-    console.log(listeMeteo)
 
     const toStringMap = element => `
 <div id="${element.date}">
@@ -25,7 +24,6 @@ function uiMeteo(listeMeteo){
     let tabString = listeMeteo.map(toStringMap);
     const concatReduce = (acc, element) => acc + element;
     let result = tabString.reduce(concatReduce, "");
-    console.log(result);
     node.innerHTML = result;
 
 }

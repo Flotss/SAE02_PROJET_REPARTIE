@@ -75,9 +75,19 @@ const displayRapport = () => {
     image("img-architecture", section1, "stylesheet/image/schemaArchitecture.png");
 
     titleParagraph("title", section1, "Ce qui a été fait");
-    paragraph("p2", section1, rapportContenu.fait);
+    paragraph("p1", section1, rapportContenu.fait);
 
-    titleParagraph("title", section1, "Lorem ipsum dolor sit amet con");
+    titleParagraph("title", section1, "Méteo");
+    paragraph("p2", section1, rapportContenu.explicationMeteo);
+
+    titleParagraph("title", section1, "Vélib");
+    paragraph("p2", section1, rapportContenu.explicationVelib);
+
+    titleParagraph("title", section2, "Serveur HTTPS");
+    paragraph("p3", section2, rapportContenu.explicationProxyServeur);
+
+    titleParagraph("title", section2, "Service proxy bloquant");
+    paragraph("p4", section2, rapportContenu.explicationProxyBlocage);
 }
 
 const displayCarte = () => {
@@ -99,8 +109,6 @@ const displayCarte = () => {
 
 const RapportOrCarte = () => {
     let value = document.getElementById("rapCarte").classList.value;
-
-    console.log(value);
 
     if (value === "rapportNav") {
         displayRapport();
