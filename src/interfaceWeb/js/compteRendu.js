@@ -73,12 +73,20 @@ const displayRapport = () => {
 
     titleParagraph("title1-1", section1, "Schéma de l'architecture");
     image("img-architecture", section1, "stylesheet/image/schemaArchitecture.png");
+    paragraph("p1", section1, rapportContenu.explicationSchema)
 
     titleParagraph("title1-2", section1, "Ce qui a été fait");
     paragraph("p1", section1, rapportContenu.fait);
 
     titleParagraph("title1-3", section1, "Méteo");
     paragraph("p2", section1, rapportContenu.explicationMeteo);
+
+    titleParagraph("title1-3", section1, "Implémentation des Vélib");
+    paragraph("p3", section1, rapportContenu.explicationVelib);
+
+    titleParagraph("title1-4", section1, "Implémentation de la météo");
+    paragraph("p4", section1, rapportContenu.explicationMeteo);
+
 
     titleParagraph("title1-4", section1, "Vélib");
     paragraph("p2", section1, rapportContenu.explicationVelib);
