@@ -84,16 +84,19 @@ let explicationProxyServeur = "" +
 let explicationPourlancer = "" +
     "Pour lancer le service RMI Restaurant : <br>" +
     " - Se placer dans le dossier 'Restaurant' <br>" +
-    " - Lancer la commande 'java -jar Proxy.jar <port>' <br>" +
+    " - Lancer la commande 'java -jar Proxy.jar port' <br>" +
     "<br>" +
     "Pour lancer le service RMI ProxyBlocage  : <br>" +
     " - Se placer dans le dossier 'ProxyBlocage' <br>" +
-    " - Lancer la commande 'java -jar Proxy.jar <port>' <br>" +
+    " - Lancer la commande 'java -jar Proxy.jar port' <br>" +
     "<br>" +
     "Pour lancer le Service Central qui gère les autres services : <br>" +
     " - Se placer dans le dossier 'Serveur' <br>" +
-    " - Lancer la commande 'java -jar Serveur.jar <hostRestaurant> <portRestaurant> <hostProxy> <portProxy>' <br>" +
+    " - Lancer la commande 'java -jar Serveur.jar hostRestaurant portRestaurant hostProxy portProxy' <br>" +
     "<br>";
+
+
+let lienGIT = "https://github.com/Flotss/SAE02_PROJET_REPARTIE"
 
 
 export default {
@@ -104,5 +107,6 @@ export default {
     explicationIncidents: explicationIncidents,
     explicationProxyBlocage: explicationProxyBlocage,
     explicationProxyServeur: explicationProxyServeur,
-    explicationPourlancer: explicationPourlancer
+    explicationPourlancer: explicationPourlancer,
+    lienGIT: lienGIT
 }

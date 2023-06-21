@@ -55,6 +55,16 @@ const image = (id, section, src) => {
     return img;
 }
 
+const link = (id, section, href) => {
+    let a = document.createElement("a");
+    a.setAttribute("id", id);
+    a.setAttribute("class", "link");
+    a.innerHTML = href;
+    a.href = href;
+    section.appendChild(a);
+    return a;
+}
+
 
 const displayRapport = () => {
     let rapCarte = document.getElementById("rapCarte");
@@ -95,6 +105,10 @@ const displayRapport = () => {
 
     titleParagraph("title", section2, "Comment lancer le projet");
     paragraph("p1", section2, rapportContenu.explicationPourlancer);
+
+
+    titleParagraph("title", section2, "LIEN GIT");
+    link("link", section2, "https://github.com/Flotss/SAE02_PROJET_REPARTIE.git");
 }
 
 const displayCarte = () => {
